@@ -222,7 +222,12 @@ h3 { font-size: 16px; }
 .ticket-person { border-bottom: 1px solid var(--line); padding: 12px 0; }
 .ticket-person-heading, .ticket-line { display: flex; justify-content: space-between; }
 .ticket-person-heading { color: var(--accent-dark); font-size: 13px; margin-bottom: 7px; }
-.ticket-line { color: var(--muted); font-size: 11px; padding: 3px 0; }
+.ticket-client-summary { align-items: center; background: #e5efe7; border-radius: 8px; color: var(--success); display: flex; font-size: 12px; justify-content: space-between; margin: 14px 0 5px; padding: 11px 12px; }
+.ticket-columns, .ticket-line { display: grid; gap: 10px; grid-template-columns: minmax(0, 1fr) 84px 84px; }
+.ticket-columns { color: var(--muted); font-size: 9px; padding: 8px 0 4px; text-transform: uppercase; }
+.ticket-columns span:nth-child(n+2), .ticket-line span:nth-child(n+2), .ticket-line strong { text-align: right; }
+.ticket-line { color: var(--muted); font-size: 11px; padding: 4px 0; }
+.ticket-line strong { color: var(--ink); font-weight: 700; }
 .ticket-total { display: flex; font-size: 13px; justify-content: space-between; padding-top: 14px; }
 .ticket-total strong { color: var(--ink); }
 
