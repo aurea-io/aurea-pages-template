@@ -182,11 +182,27 @@ h3 { font-size: 16px; }
 .restaurant-cart .eyebrow { color: #b4ccb9; }
 .cart-items { flex: 1; max-width: 430px; }
 .cart-items > div { display: flex; font-size: 12px; justify-content: space-between; padding: 4px 0; }
+.cart-line { align-items: flex-start; gap: 12px; }
+.cart-line > div { flex: 1; }
+.cart-line > b { white-space: nowrap; }
+.cart-person-input { background: rgba(255,255,255,.1); border: 1px solid #6a8476; border-radius: 6px; color: #fffaf3; display: block; font-size: 11px; margin-top: 6px; padding: 7px 8px; width: 100%; }
+.cart-person-input::placeholder { color: #b4c5b9; }
+.cart-helper { color: #b4c5b9; font-size: 11px; line-height: 1.4; margin: 7px 0 0; max-width: 230px; }
 .cart-total { border-top: 1px solid #536d61; margin-top: 8px; padding-top: 10px; }
 .cart-actions { display: flex; gap: 8px; margin-top: 12px; }
 .cart-actions .ghost-button { border-color: #6a8476; color: #fffaf3; }
 .cart-actions .primary-button { background: #e1aa82; border-color: #e1aa82; color: #2d2a26; }
 .muted-text { color: #afc0b5; font-size: 12px; margin: 0; }
+.split-ticket { background: #fffaf3; border-radius: 10px; color: var(--ink); margin-top: 18px; padding: 17px; }
+.ticket-heading { align-items: flex-start; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; padding-bottom: 12px; }
+.ticket-heading h3 { margin: 6px 0 0; }
+.ticket-heading > span { background: #e5efe7; border-radius: 999px; color: var(--success); font-size: 10px; font-weight: 700; padding: 6px 8px; }
+.ticket-person { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.ticket-person-heading, .ticket-line { display: flex; justify-content: space-between; }
+.ticket-person-heading { color: var(--accent-dark); font-size: 13px; margin-bottom: 7px; }
+.ticket-line { color: var(--muted); font-size: 11px; padding: 3px 0; }
+.ticket-total { display: flex; font-size: 13px; justify-content: space-between; padding-top: 14px; }
+.ticket-total strong { color: var(--ink); }
 
 .stock-public { background: #fbf7f1; min-height: 100vh; }
 .stock-header { align-items: center; border-bottom: 1px solid #e8ded1; display: flex; justify-content: space-between; padding: 23px max(24px, calc((100% - 1050px) / 2)); }

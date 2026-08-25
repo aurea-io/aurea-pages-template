@@ -6,7 +6,7 @@ Esta carpeta contiene una demo funcional autocontenida de Aurea Pages.
 
 - **Gestor:** resumen operativo y selector de negocio para tres contextos.
 - **Turnos:** página de ejemplo para `De Santas Beauty Spa`, selección de servicio, fecha, horario, datos del cliente y confirmación.
-- **Restaurante:** menú de `La Esquina`, mesa, comensales, carrito, pedido a cocina y división de cuenta.
+- **Restaurante:** menú de `La Esquina`, mesa, comensales, carrito, asignación de cada ítem por nombre, ticket separado y pedido a cocina.
 - **Stock:** catálogo público de `Miga` condicionado por disponibilidad, carrito de retiro y gestor de inventario con alertas, movimientos y producción.
 - **Persistencia local:** los servicios nuevos y las reservas creadas se guardan en `localStorage` del navegador.
 - **Navegación:** `#public` muestra la página pública y `#admin` muestra el gestor.

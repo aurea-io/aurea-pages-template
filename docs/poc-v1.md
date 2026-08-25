@@ -34,8 +34,9 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 - Menú agrupado por categorías para `La Esquina`.
 - Contexto de mesa y cantidad de comensales.
 - Carrito por ítem.
+- Nombre del comensal asociado a cada ítem.
 - Envío del pedido a cocina como estado `En preparación`.
-- Vista conceptual de división de cuenta.
+- Ticket separado por persona, con subtotales y total de la mesa.
 
 ### Entregable público de stock
 
