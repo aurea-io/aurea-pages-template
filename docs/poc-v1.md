@@ -31,6 +31,7 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 
 ### Entregable público de restaurante
 
+- Escenario de prueba preconfigurado: mesa 3, cuatro personas y sesión activa `Yo`.
 - Menú agrupado por categorías para `La Esquina`.
 - Contexto de mesa y cantidad de comensales.
 - Sesión de mesa por dispositivo: cada persona ingresa su nombre y número de mesa.
