@@ -54,6 +54,11 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 
 - Restaurante: pedidos activos, mapa de mesas, cuentas divididas y acciones rápidas.
 - Stock: inventario, alertas de reposición, movimientos y producción del día.
+- Mozo: vista mobile-first de mesas, pedidos para atender, estados y acciones rápidas.
+
+### Experiencia responsive
+
+El entregable público y la vista de mozo priorizan el uso desde celular: botones táctiles, navegación inferior, tarjetas compactas, paneles laterales y layouts de una columna en pantallas pequeñas.
 
 ## Cómo probarlo
 

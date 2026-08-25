@@ -269,6 +269,53 @@ h3 { font-size: 16px; }
 .light-select option { color: var(--ink); }
 .dark-join { color: var(--accent-dark); white-space: nowrap; }
 .panel-full-button { margin-top: 22px; width: 100%; }
+.waiter-shell { background: #f4f1eb; color: var(--ink); min-height: 100vh; padding-bottom: 80px; }
+.waiter-topbar { align-items: center; background: #263b33; color: #fffaf3; display: flex; justify-content: space-between; padding: 23px max(20px, calc((100% - 760px) / 2)); }
+.waiter-kicker { color: #b8cdbd; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.waiter-topbar h1 { font-size: 29px; margin: 7px 0 0; }
+.waiter-user { align-items: center; background: #e2a481; border-radius: 50%; color: #543125; display: flex; flex-direction: column; font-size: 12px; font-weight: 700; height: 46px; justify-content: center; width: 46px; }
+.waiter-user span { font-size: 7px; font-weight: 500; margin-top: 1px; text-transform: uppercase; }
+.waiter-tabs { background: #fffdf9; border-bottom: 1px solid var(--line); display: flex; gap: 22px; padding: 0 max(20px, calc((100% - 760px) / 2)); }
+.waiter-tabs button { background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted); font-size: 13px; padding: 16px 2px 13px; }
+.waiter-tabs button.active { border-color: var(--accent); color: var(--ink); font-weight: 700; }
+.waiter-tabs b { background: #f4dfd3; border-radius: 999px; color: var(--accent-dark); font-size: 10px; margin-left: 3px; padding: 3px 5px; }
+.waiter-main { margin: 0 auto; max-width: 760px; padding: 24px 20px 30px; }
+.waiter-summary { align-items: center; display: flex; justify-content: space-between; }
+.waiter-summary span { color: var(--muted); display: block; font-size: 11px; }
+.waiter-summary strong { display: block; font: 600 22px "Playfair Display", Georgia, serif; margin-top: 5px; }
+.waiter-filter { display: flex; gap: 6px; margin: 23px 0 16px; overflow-x: auto; }
+.waiter-filter button { background: #fffdf9; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 11px; padding: 9px 12px; white-space: nowrap; }
+.waiter-filter button.active { background: #263b33; border-color: #263b33; color: white; }
+.waiter-filter b { margin-left: 3px; opacity: .7; }
+.waiter-table-grid { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); }
+.waiter-table-card { align-items: center; background: #fffdf9; border: 1px solid var(--line); border-radius: 12px; display: flex; gap: 10px; padding: 12px 10px; text-align: left; }
+.waiter-table-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.waiter-table-card .table-number { align-items: center; background: #e5efe7; border-radius: 9px; color: var(--success); display: flex; font: 600 20px "Playfair Display", Georgia, serif; height: 39px; justify-content: center; width: 39px; }
+.waiter-table-card.occupied .table-number { background: #f7ded0; color: var(--accent-dark); }
+.waiter-table-card.reservada .table-number { background: #eee5f0; color: #80668b; }
+.waiter-table-card.pedir-cuenta .table-number { background: #f8e5ba; color: #8c6827; }
+.waiter-table-card > div:not(.table-number) { flex: 1; }
+.waiter-table-card strong { display: block; font-size: 11px; }
+.waiter-table-card small { color: var(--muted); display: block; font-size: 10px; margin-top: 3px; }
+.waiter-table-card > span { color: #b2aaa1; font-size: 18px; }
+.waiter-orders { margin-top: 30px; }
+.waiter-section-head { align-items: center; display: flex; justify-content: space-between; margin-bottom: 11px; }
+.waiter-section-head h2 { font-size: 21px; margin: 0; }
+.waiter-section-head button { background: none; border: 0; color: var(--accent-dark); font-size: 11px; font-weight: 700; }
+.waiter-order-card { align-items: center; background: #fffdf9; border: 1px solid var(--line); border-radius: 12px; display: flex; gap: 12px; margin-top: 8px; padding: 14px; }
+.order-status-dot { border-radius: 50%; flex: 0 0 9px; height: 9px; }
+.order-status-dot.kitchen { background: #e3a180; }
+.order-status-dot.ready { background: #6e9c7c; }
+.waiter-order-card > div:nth-child(2) { flex: 1; }
+.waiter-order-card strong { display: block; font-size: 13px; }
+.waiter-order-card p { color: var(--ink); font-size: 11px; margin: 5px 0; }
+.waiter-order-card small { color: var(--muted); font-size: 10px; }
+.status-button { background: #f5e8df; border: 0; border-radius: 7px; color: var(--accent-dark); font-size: 10px; font-weight: 700; padding: 9px; }
+.status-button.ready-button { background: #e2eee5; color: var(--success); }
+.waiter-bottom-nav { background: #fffdf9; border-top: 1px solid var(--line); bottom: 0; display: flex; justify-content: center; gap: min(12vw, 80px); padding: 10px 20px 12px; position: fixed; width: 100%; z-index: 5; }
+.waiter-bottom-nav a { align-items: center; color: var(--muted); display: flex; flex-direction: column; font-size: 19px; gap: 4px; }
+.waiter-bottom-nav a span { font-size: 9px; }
+.waiter-bottom-nav a.active { color: var(--accent-dark); font-weight: 700; }
 .stock-cart .eyebrow { color: #ffe8d9; }
 .public-hero { display: grid; gap: 54px; grid-template-columns: 1fr 1fr; margin: 35px auto 70px; max-width: 980px; padding: 0 30px; }
 .hero-copy { padding-top: 26px; }
@@ -371,4 +418,11 @@ h3 { font-size: 16px; }
   .stock-product-copy h3 { font-size: 17px; }
   .restaurant-side-panel { padding: 24px 18px; }
   .table-order-actions { align-items: stretch; flex-direction: column; }
+  .waiter-topbar { padding-left: 18px; padding-right: 18px; }
+  .waiter-tabs { padding-left: 18px; padding-right: 18px; }
+  .waiter-main { padding-left: 16px; padding-right: 16px; }
+  .waiter-table-grid { grid-template-columns: repeat(2, 1fr); }
+  .waiter-table-card { min-height: 67px; }
+  .waiter-order-card { align-items: flex-start; }
+  .waiter-order-card .status-button { margin-left: auto; }
 }
