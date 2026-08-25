@@ -11,6 +11,7 @@ Esta carpeta contiene la especificación funcional y técnica de Aurea Pages Tem
 | [`modulos/`](modulos/) | Especificaciones funcionales por módulo |
 | [`uso/`](uso/) | Flujos de uso y configuración |
 | [`operacion/`](operacion/) | Desarrollo, pruebas y despliegue |
+| [`poc-v1.md`](poc-v1.md) | Alcance y validación del primer entregable ejecutable |
 | [`decisiones-pendientes.md`](decisiones-pendientes.md) | Decisiones necesarias antes de producción |
 
 ## Convenciones

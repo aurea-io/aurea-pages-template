@@ -42,6 +42,11 @@ El primer producto recomendado es un sistema de turnos para profesionales de bel
 - [Despliegue y operación](docs/operacion/despliegue.md)
 - [Decisiones pendientes](docs/decisiones-pendientes.md)
 
+### Entregable ejecutable
+
+- [POC v1 — gestor y página pública](docs/poc-v1.md)
+- [Guía de ejecución de la POC](apps/web/README.md)
+
 También está disponible el [índice de documentación](docs/README.md).
 
 ## Stack objetivo
