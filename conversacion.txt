@@ -1,0 +1,69 @@
+[15:24, 12/8/2026] Fede Marko: No mandaste nada.... Cagon
+[15:24, 12/8/2026] Nahue Santander: Tenes razón, ahora corto y mando jajaja así lo mando prolijo
+[15:25, 12/8/2026] Fede Marko: Uno ya no puede dormirse ni en su propia casa che....
+[20:25, 12/8/2026] Fede Marko: Tenes razón, ahora corto y mando jajaja así lo mando prolijo
+......
+[20:27, 12/8/2026] Nahue Santander: ajjaja recien me siento en la pc
+[20:27, 12/8/2026] Nahue Santander: esas ganas me gustan
+[20:39, 12/8/2026] Nahue Santander: las ideas que tenia eran sistemas 'rapidos' con venta facil:
+
+1- v1 de pwa de encargos ej gente que vende pasteleria, comida, etc. Con gestion de stockk, control de ingresos, egresos. De este lo llegue a deployar, lo di de baja por que lo quiero subir a un vps, se los puedo mostrar local, despues les hago un video. Luego una v2 era agregar recomendaciones, generar un marketplace de vendedores, etc.
+Resumen de algunas funcionalidades:
+Ingredientes — stock, precios, alertas cuando algo se está por acabar, registro de compras
+Recetas — cargás los ingredientes que lleva cada producto y el sistema calcula solo el costo real y el precio de venta (por margen o manual)
+Pedidos — con estado (pendiente, en preparación, listo, entregado) y seña
+Ventas — historial, stats del mes, descuentos automáticos por fidelidad de cliente
+Clientes — con un sistema de fidelización que cuenta compras y activa descuentos solo
+Multi-usuario real — cada pastelera tiene sus propios datos, aislados de las demás, con login seguro
+Funciona como app — se instala en el celu como cualquier app (sin pasar por Google Play), y anda igual de bien en la compu
+
+2-  NFC:
+A)Aca tengo 2, quiero indagar en hacer funcionar una mini puerta como tienen los gimnasios y hacer una app de entrada general + personalizacion ej: gimnasio con rutinas, seguimiento, etc de ser requerido, dos productos que se pueden vender en pack.
+B) Este es el que estoy arrancado ahora, es para locales gastronomicos, siento que es super rapido y facil, en vez de solo vender html/template, vender algo como linktree para que mediante una presentacion con qr/nfc lo pongan en mesas y mostrador, la gente escanea, apoya el celu y tiene un linktree mas copado con redireccion a redes sociales, info del lugar, etc. O bien la pagina html copada para el local con todos estos accesos.
+Tambien vender nfc para que pongan en los lugares de donde llevan la carta para que la gente deje reseña apoyando el celu o con qr. La v2 de esto, era un sistema de gestion de mesas para que la gente vea mediante un link lo que va gastando, pueda dividir, etc, y pagar mediante ahi dsi asi lo requiera. Esto me llama la atencion, siento que es bastante rapido
+
+3- Turnos para uñas-peluquerias
+No una turnera simple... o si, pero con agregados para que la gente suba, elija diseños, cosa de llegar y la persona que lo atiende ya sabe que quiere, es super simple, pero a su vez agregar muchas mas funcionalidades y escalar a un marketplace de vidriera para estas profesiones. 
+
+4- Hacer un control para inmobiliarias-concecionarias
+este rubro creo que esta re en bolas con todo este tema, es hacer un sistema boludo, rapido para que gestionen su stock, este creo te lo habia comentado fede, a su vez tener el sistema de CM que autopulique en redes, y con ayuda de ia ofrecer funcionalidades copadas para la generacion de contenido y demas entre mas cosas
+(v2 o que me gustaria, agregar pagos, señas, etc con contratos de blockchain, re negrero, re contra ilegal creo, pero bue, los negocios estos van por atras siempre)
+[20:39, 12/8/2026] Nahue Santander: Demasiado texto, estas son las ideas que tenia, fijense si les copa... en mi mente es hacer lo que mas les cope, o si tienen ideas tambien tirenlas, pero hacer. Ya sea todos en v1 para salir a vender y ver cual pega y asi meterle qcy
+[20:40, 12/8/2026] Nahue Santander: Y obviamente, elkijamos nombre, creemonos un instagram, y empecemos a mandar a lugares para hacerles paginas estaticas
+[21:06, 12/8/2026] Nahue Santander: Para varias cosas tengo un amigo que trabaja para la compañia de postnet, es el tecnico que va, los instala/cambia y viaja mucho por varias ciudades, y le tire de que cuando va, a los mismos lugares les ofrezca y a los cercanos tambien
+[21:15, 12/8/2026] Nahue Santander: Foto
+Cómo se llama el gato?
+[21:16, 12/8/2026] Amor: Cómo se llama el gato?
+Lucy 😈
+[21:18, 12/8/2026] Amor: El de las uñas creo que dónde voy tiene uno parecido
+[21:19, 12/8/2026] Nahue Santander: Los gatos son como los chinos
+[21:21, 12/8/2026] Amor: https://turnito.app/c/W4Z3VxLJhUySDy
+[21:21, 12/8/2026] Amor: Algo así decías
+[21:21, 12/8/2026] Nahue Santander: Siii re algo así
+[21:22, 12/8/2026] Amor: Si pones para reservar ahí te salta los distintos servicios
+[21:22, 12/8/2026] Nahue Santander: Con opción de agregar la foto que es una boludes
+[21:22, 12/8/2026] Nahue Santander: Mandar seña de plata mediante transfe
+[21:22, 12/8/2026] Nahue Santander: Generar también fidelidad, en: cada tantas veces ofrecer descuento o turno gratis
+[21:22, 12/8/2026] Nahue Santander: etc
+[21:23, 12/8/2026] Nahue Santander: Y obvio, luego ofrecerles el servicio de cm a todos
+[21:23, 12/8/2026] Nahue Santander: X eso, eso de tal vez sistemas de lugares más chicos pero ofrecerle muchas funcionalidades
+[21:24, 12/8/2026] Nahue Santander: Crecimiento e impacto en las redes (?
+[22:47, 12/8/2026] Nahue Santander: @Fede Marko  ?!?!?!?!?!
+[21:46, 13/8/2026] Fede Marko: @Fede Marko  ?!?!?!?!?!
+Clave siesta desde que termino la planing hasta las 19 y disocie desde entonces.... Mañana te leo jajajaja
+Clave siesta desde que termino la planing hasta las 19 y disocie desde entonces.... Mañana te leo jajajaja
+[22:58, 13/8/2026] Nahue Santander: Clave siesta desde que termino la planing hasta las 19 y disocie desde entonces.... Mañana te leo jajajaja
+Jajajajajajaj q hdpppp
+[17:11, 16/8/2026] Fede Marko: el que mas me gusta pero por decir de poder usarlo es el del menu y poder dividir la cuenta... que sirva para hacer los pedidos y te deje separar por persona y te genere el ticket separado... te puede agrupar por mesa y te unis a una mesa entonces hace el pedido y lo agrega ahi con tu nombre
+[17:13, 16/8/2026] Fede Marko: el de turnos lo veo como una acotacion del primero... me gusta y es rapido
+[17:16, 16/8/2026] Fede Marko: el 4 medio que tambien podria ser una adaptacion del 1 y 3... veria de hacer una super app completa con los 3 puntos y venderlo como en partes... tipo vender el basico de turnos/productos y agregar las demas funciones como complementos...
+
+la parte del pago te la debo jajajaja yo le agregaria mercadopago por las dudas mas que blockchain por lo legal jajaja
+[17:49, 16/8/2026] Fede Marko: Me tome un poco más de tiempo jajaj pero lo leí!
+[22:04, 16/8/2026] Fede Marko: 0:54
+Si tiene una buena arqui se puede hacer algo completo los entregables qué sea sacar clases... Incluso se podría hacer un front qué te elija qué querés entregar y agregue o saque esas clases jajaja
+[22:10, 16/8/2026] Nahue Santander: Vos decís tener todas las funcionalidades mezcladas? No lo veo mal, pero siento que habría subservicios dentro del backend ponele
+[22:11, 16/8/2026] Fede Marko: Bien hecho se puede tener bien separado y que se pueda poner o sacar fácil
+[22:12, 16/8/2026] Nahue Santander: Vos decís tener todo junto en front y back?
+[22:12, 16/8/2026] Nahue Santander: Ósea sería claramente funcionalidades en común y subdivisión por producto
+[22:12, 16/8/2026] Nahue Santander: En el front me cuesta un poco más, ósea no sé si ahí tiene tanto sentido abusar de hacerlo generico
