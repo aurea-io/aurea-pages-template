@@ -4,8 +4,10 @@ Esta carpeta contiene una demo funcional autocontenida de Aurea Pages.
 
 ## Qué incluye
 
-- **Gestor:** resumen operativo, agenda del día, métricas mockeadas, catálogo de servicios y alta de un servicio nuevo.
-- **Entregable público:** página de ejemplo para `De Santas Beauty Spa`, selección de servicio, fecha, horario, datos del cliente y confirmación.
+- **Gestor:** resumen operativo y selector de negocio para tres contextos.
+- **Turnos:** página de ejemplo para `De Santas Beauty Spa`, selección de servicio, fecha, horario, datos del cliente y confirmación.
+- **Restaurante:** menú de `La Esquina`, mesa, comensales, carrito, pedido a cocina y división de cuenta.
+- **Stock:** catálogo público de `Miga` condicionado por disponibilidad, carrito de retiro y gestor de inventario con alertas, movimientos y producción.
 - **Persistencia local:** los servicios nuevos y las reservas creadas se guardan en `localStorage` del navegador.
 - **Navegación:** `#public` muestra la página pública y `#admin` muestra el gestor.
 
@@ -18,11 +20,11 @@ cd apps/web
 python3 -m http.server 4173
 ```
 
-Abrir <http://localhost:4173> para el entregable público o <http://localhost:4173/#admin> para el gestor.
+Abrir <http://localhost:4173/apps/web/> para el entregable de turnos, `#restaurant` para el restaurante, `#stock` para stock o `#admin`, `#admin-restaurant` y `#admin-stock` para sus gestores.
 
 ## Datos de demo
 
-Los datos iniciales representan un negocio de belleza ficticio. No son datos de producción ni están conectados a Mercado Pago. El pago se representa como el estado `Seña pendiente` para validar el flujo de producto.
+Los datos iniciales representan negocios ficticios. No son datos de producción ni están conectados a Mercado Pago. Los pagos y pedidos se simulan en el navegador para validar los flujos de producto.
 
 ## Próximo paso técnico
 
