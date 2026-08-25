@@ -33,6 +33,8 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 
 - Menú agrupado por categorías para `La Esquina`.
 - Contexto de mesa y cantidad de comensales.
+- Sesión de mesa por dispositivo: cada persona ingresa su nombre y número de mesa.
+- Asignación automática del pedido al nombre de la sesión activa.
 - Carrito por ítem.
 - Nombre del comensal asociado a cada ítem.
 - Envío del pedido a cocina como estado `En preparación`.

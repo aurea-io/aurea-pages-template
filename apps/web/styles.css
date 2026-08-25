@@ -168,6 +168,17 @@ h3 { font-size: 16px; }
 .restaurant-intro { max-width: 500px; }
 .restaurant-intro h2 { font-size: 38px; margin: 10px 0; }
 .restaurant-intro p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+.restaurant-session-card { align-items: center; background: #fffdf9; border: 1px solid #e5ded4; border-radius: 13px; display: flex; gap: 25px; justify-content: space-between; margin-top: 28px; padding: 20px; }
+.restaurant-session-card.active { background: #e8f0e8; border-color: #d2e2d4; }
+.session-kicker { color: var(--accent-dark); display: block; font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.session-card h3, .restaurant-session-card h3 { font: 600 21px "Playfair Display", Georgia, serif; margin: 7px 0 4px; }
+.restaurant-session-card strong { display: block; font: 600 21px "Playfair Display", Georgia, serif; margin: 6px 0 3px; }
+.restaurant-session-card small { color: var(--muted); display: block; font-size: 11px; }
+.restaurant-session-card p { color: var(--muted); font-size: 12px; line-height: 1.45; margin: 0; max-width: 430px; }
+.session-form { align-items: flex-end; display: flex; gap: 9px; min-width: min(100%, 530px); }
+.session-form .field { flex: 1; }
+.session-form .field:last-of-type { max-width: 92px; }
+.session-form .primary-button { white-space: nowrap; }
 .menu-section { margin-top: 40px; }
 .menu-section h3 { border-bottom: 1px solid #dcd4ca; font: 600 24px "Playfair Display", Georgia, serif; padding-bottom: 12px; }
 .menu-items { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
@@ -322,6 +333,9 @@ h3 { font-size: 16px; }
   .restaurant-badge { align-self: flex-end; margin-top: -90px; }
   .restaurant-nav { align-items: flex-start; flex-direction: column; gap: 8px; padding: 9px 18px; }
   .restaurant-main { padding-left: 18px; padding-right: 18px; }
+  .restaurant-session-card { align-items: stretch; flex-direction: column; gap: 17px; }
+  .session-form { align-items: stretch; flex-direction: column; min-width: 0; }
+  .session-form .field:last-of-type { max-width: none; }
   .menu-items { grid-template-columns: 1fr; }
   .restaurant-cart, .stock-cart { align-items: stretch; flex-direction: column; gap: 15px; }
   .stock-header { flex-wrap: wrap; gap: 15px; padding: 18px; }
