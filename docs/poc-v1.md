@@ -36,6 +36,8 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 - Sesión de mesa por dispositivo: cada persona ingresa su nombre y número de mesa.
 - Asignación automática del pedido al nombre de la sesión activa.
 - Carrito por ítem.
+- Modo individual, compartido entre participantes o compartido con toda la mesa.
+- Acción para sumarse al pedido iniciado por otra persona.
 - Nombre del comensal asociado a cada ítem.
 - Envío del pedido a cocina como estado `En preparación`.
 - Ticket separado por persona, con subtotales y total de la mesa.

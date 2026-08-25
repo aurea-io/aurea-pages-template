@@ -6,7 +6,7 @@ Esta carpeta contiene una demo funcional autocontenida de Aurea Pages.
 
 - **Gestor:** resumen operativo y selector de negocio para tres contextos.
 - **Turnos:** página de ejemplo para `De Santas Beauty Spa`, selección de servicio, fecha, horario, datos del cliente y confirmación.
-- **Restaurante:** menú de `La Esquina`, sesión por celular con nombre y mesa, carrito, asignación automática de cada ítem, ticket separado y pedido a cocina.
+- **Restaurante:** menú de `La Esquina`, sesión por celular con nombre y mesa, asignación automática, opción de sumarse al pedido de otra persona, reparto individual o compartido y ticket separado.
 - **Stock:** catálogo público de `Miga` condicionado por disponibilidad, carrito de retiro y gestor de inventario con alertas, movimientos y producción.
 - **Persistencia local:** los servicios nuevos y las reservas creadas se guardan en `localStorage` del navegador.
 - **Navegación:** `#public` muestra la página pública y `#admin` muestra el gestor.
@@ -24,7 +24,7 @@ Abrir <http://localhost:4173/apps/web/> para el entregable de turnos, `#restaura
 
 ## Datos de demo
 
-Los datos iniciales representan negocios ficticios. No son datos de producción ni están conectados a Mercado Pago. Los pagos y pedidos se simulan en el navegador para validar los flujos de producto. En esta POC la sesión de mesa vive en el navegador; un backend deberá compartirla entre dispositivos reales.
+Los datos iniciales representan negocios ficticios. No son datos de producción ni están conectados a Mercado Pago. Los pagos y pedidos se simulan en el navegador para validar los flujos de producto. En esta POC la sesión y la mesa viven en el navegador; un backend deberá compartirlas entre dispositivos reales y sincronizar los pedidos en tiempo real.
 
 ## Próximo paso técnico
 

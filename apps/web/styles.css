@@ -198,6 +198,10 @@ h3 { font-size: 16px; }
 .cart-line > b { white-space: nowrap; }
 .cart-person-input { background: rgba(255,255,255,.1); border: 1px solid #6a8476; border-radius: 6px; color: #fffaf3; display: block; font-size: 11px; margin-top: 6px; padding: 7px 8px; width: 100%; }
 .cart-person-input::placeholder { color: #b4c5b9; }
+.cart-share-select { background: rgba(255,255,255,.1); border: 1px solid #6a8476; border-radius: 6px; color: #fffaf3; display: block; font-size: 11px; margin-top: 5px; padding: 7px 8px; width: 100%; }
+.cart-share-select option { color: var(--ink); }
+.join-order { background: transparent; border: 0; color: #ffd1b5; display: block; font-size: 10px; font-weight: 700; margin-top: 7px; padding: 0; }
+.join-order:hover { color: white; text-decoration: underline; }
 .cart-helper { color: #b4c5b9; font-size: 11px; line-height: 1.4; margin: 7px 0 0; max-width: 230px; }
 .cart-total { border-top: 1px solid #536d61; margin-top: 8px; padding-top: 10px; }
 .cart-actions { display: flex; gap: 8px; margin-top: 12px; }
@@ -208,6 +212,7 @@ h3 { font-size: 16px; }
 .ticket-heading { align-items: flex-start; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; padding-bottom: 12px; }
 .ticket-heading h3 { margin: 6px 0 0; }
 .ticket-heading > span { background: #e5efe7; border-radius: 999px; color: var(--success); font-size: 10px; font-weight: 700; padding: 6px 8px; }
+.ticket-heading small { color: var(--muted); display: block; font-size: 10px; margin-top: 5px; }
 .ticket-person { border-bottom: 1px solid var(--line); padding: 12px 0; }
 .ticket-person-heading, .ticket-line { display: flex; justify-content: space-between; }
 .ticket-person-heading { color: var(--accent-dark); font-size: 13px; margin-bottom: 7px; }
