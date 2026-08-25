@@ -41,6 +41,8 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 - Nombre del comensal asociado a cada ítem.
 - Envío del pedido a cocina como estado `En preparación`.
 - Ticket separado por persona, con subtotales y total de la mesa.
+- La pantalla principal mantiene el pedido simple; el detalle se consulta desde `Ver pedidos` o `Ver ticket`.
+- `Ver pedidos` concentra la acción para sumarse o cambiar el modo de reparto.
 
 ### Entregable público de stock
 

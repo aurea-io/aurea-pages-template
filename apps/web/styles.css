@@ -251,6 +251,24 @@ h3 { font-size: 16px; }
 .stock-product-footer .add-item { font-size: 11px; }
 .stock-product.low-stock .stock-product-copy p { color: var(--accent-dark); font-weight: 700; }
 .stock-cart { background: #bf7654; }
+.restaurant-panel-backdrop { align-items: stretch; background: rgba(29, 35, 31, .4); display: flex; inset: 0; justify-content: flex-end; position: fixed; z-index: 8; }
+.restaurant-side-panel { background: #fffdf9; box-shadow: -12px 0 35px rgba(30, 26, 20, .16); max-width: 560px; overflow: auto; padding: 30px; width: 100%; }
+.side-panel-head { align-items: flex-start; display: flex; justify-content: space-between; }
+.side-panel-head h2 { font-size: 31px; margin: 8px 0 0; }
+.side-panel-intro { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 12px 0 25px; }
+.table-orders-list { display: grid; gap: 10px; }
+.table-order-item { border: 1px solid var(--line); border-radius: 10px; padding: 15px; }
+.table-order-main { display: flex; justify-content: space-between; }
+.table-order-main strong { font-size: 14px; }
+.table-order-main span { font-size: 13px; font-weight: 700; }
+.table-order-item > small { color: var(--muted); display: block; font-size: 11px; margin-top: 5px; }
+.table-order-actions { align-items: center; display: flex; gap: 7px; margin-top: 12px; }
+.table-order-actions .cart-person-input { flex: 1; }
+.light-input, .light-select { background: #f7f3ed; border-color: var(--line); color: var(--ink); margin: 0; }
+.light-input::placeholder { color: #958d84; }
+.light-select option { color: var(--ink); }
+.dark-join { color: var(--accent-dark); white-space: nowrap; }
+.panel-full-button { margin-top: 22px; width: 100%; }
 .stock-cart .eyebrow { color: #ffe8d9; }
 .public-hero { display: grid; gap: 54px; grid-template-columns: 1fr 1fr; margin: 35px auto 70px; max-width: 980px; padding: 0 30px; }
 .hero-copy { padding-top: 26px; }
@@ -351,4 +369,6 @@ h3 { font-size: 16px; }
   .stock-intro { align-items: flex-start; flex-direction: column; gap: 12px; }
   .stock-product-grid { grid-template-columns: 1fr 1fr; }
   .stock-product-copy h3 { font-size: 17px; }
+  .restaurant-side-panel { padding: 24px 18px; }
+  .table-order-actions { align-items: stretch; flex-direction: column; }
 }
