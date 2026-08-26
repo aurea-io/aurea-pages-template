@@ -7,7 +7,7 @@ Esta sección separa los entregables de la POC por solución comercial. Cada car
 | [Turnos](turnos/README.md) | Profesionales y estudios de servicios | Reservas online y gestor de agenda |
 | [Restaurante](restaurante/README.md) | Restaurantes y bares | Menú digital, mesa compartida y pedidos |
 | [Stock](stock/README.md) | Elaboradores y comercios | Catálogo, disponibilidad y reservas |
-| [Mozo](mozo/README.md) | Equipos de salón | Mesas, pedidos y atención operativa |
+| Restaurante | Restaurantes y bares | Menú, mesas, pedidos, caja y vista mozo |
 
 ## Cómo presentar los ejemplos
 
@@ -16,4 +16,4 @@ Esta sección separa los entregables de la POC por solución comercial. Cada car
 3. Usar el README de cada carpeta como guion comercial.
 4. Mostrar las imágenes de `media/` como apoyo visual cuando no se esté ejecutando la aplicación.
 
-La implementación actual comparte un núcleo visual y de estado en `apps/web/app.js`; las carpetas de esta sección separan las propuestas comerciales y sus entregables. La separación técnica por módulos puede abordarse en una siguiente iteración.
+La implementación actual comparte un núcleo visual y de estado en `apps/web/app.js`; las carpetas de esta sección separan las propuestas comerciales y sus entregables. La vista Mozo forma parte del ejemplo Restaurante. La separación técnica por módulos puede abordarse en una siguiente iteración.

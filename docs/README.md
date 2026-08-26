@@ -37,6 +37,5 @@ Esta carpeta contiene la especificación funcional y técnica de Aurea Pages Tem
 
 1. [Índice de ejemplos comerciales](ejemplos/README.md)
 2. [Aurea Restaurante](ejemplos/restaurante/README.md)
-3. [Aurea Mozo](ejemplos/mozo/README.md)
-4. [Aurea Turnos](ejemplos/turnos/README.md)
-5. [Aurea Stock](ejemplos/stock/README.md)
+3. [Aurea Turnos](ejemplos/turnos/README.md)
+4. [Aurea Stock](ejemplos/stock/README.md)

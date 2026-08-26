@@ -40,7 +40,21 @@ La prueba está preparada para la mesa 3 con cuatro personas: Yo, Lucía, Martí
 
 - Menú público: `#restaurant`
 - Gestor: `#admin-restaurant`
-- Vista mozo: `#waiter`
+- Vista mozo integrada: `#waiter`
+
+## Vista mozo integrada
+
+La vista Mozo es parte del mismo producto Restaurante. No se presenta como una solución independiente: usa el contexto de La Esquina y complementa el flujo con una operación mobile-first para mesas, pedidos, avisos y entregas.
+
+![Operación de mozo en restaurante](media/flujo-mozo.svg)
+
+Incluye:
+
+- Mapa de mesas y estados.
+- Pedidos para atender.
+- Avisos del salón.
+- Detalle de una mesa.
+- Acceso al gestor y al menú público.
 
 ## Valor para el restaurante
 

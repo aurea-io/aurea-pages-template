@@ -17,7 +17,6 @@ El primer producto recomendado es un sistema de turnos para profesionales de bel
 - [Aurea Turnos](docs/ejemplos/turnos/README.md)
 - [Aurea Restaurante](docs/ejemplos/restaurante/README.md)
 - [Aurea Stock](docs/ejemplos/stock/README.md)
-- [Aurea Mozo](docs/ejemplos/mozo/README.md)
 - [Índice de ejemplos comerciales](docs/ejemplos/README.md)
 
 ### Producto y alcance
