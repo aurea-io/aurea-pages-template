@@ -4,7 +4,7 @@
 
 Un menú digital conectado con la mesa para que cada persona pida desde su celular y el restaurante reciba pedidos claros, ordenados y listos para operar.
 
-![Flujo de restaurante](media/flujo-restaurante.svg)
+![Menú público de La Esquina](media/restaurant-public.png)
 
 ## Para quién es
 
@@ -46,7 +46,7 @@ La prueba está preparada para la mesa 3 con cuatro personas: Yo, Lucía, Martí
 
 La vista Mozo es parte del mismo producto Restaurante. No se presenta como una solución independiente: usa el contexto de La Esquina y complementa el flujo con una operación mobile-first para mesas, pedidos, avisos y entregas.
 
-![Operación de mozo en restaurante](media/flujo-mozo.svg)
+![Vista mozo de La Esquina](media/restaurant-waiter.png)
 
 Incluye:
 
@@ -55,6 +55,8 @@ Incluye:
 - Avisos del salón.
 - Detalle de una mesa.
 - Acceso al gestor y al menú público.
+
+![Gestor de La Esquina](media/restaurant-manager.png)
 
 ## Valor para el restaurante
 

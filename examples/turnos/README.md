@@ -4,7 +4,7 @@
 
 Una página de reservas simple y elegante para que un negocio reciba turnos sin depender de mensajes dispersos por WhatsApp.
 
-![Flujo comercial de turnos](media/flujo-turnos.svg)
+![Página pública de turnos](media/turnos-public.png)
 
 ## Para quién es
 

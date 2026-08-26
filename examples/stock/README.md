@@ -4,7 +4,7 @@
 
 Un catálogo simple para vender lo disponible hoy, controlar cantidades y convertir la disponibilidad real en pedidos o reservas.
 
-![Flujo comercial de stock](media/flujo-stock.svg)
+![Catálogo público de stock](media/stock-public.png)
 
 ## Para quién es
 
