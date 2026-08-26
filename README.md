@@ -2,7 +2,7 @@
 
 Template de plataforma modular para pequeños negocios, orientado a crear productos digitales configurables a partir de un núcleo común.
 
-> **Estado actual:** etapa de definición y POC. Este repositorio contiene documentación de producto y arquitectura; la implementación del backend y frontend todavía debe construirse.
+> **Estado actual:** POC v1 ejecutable y documentación de producto. La implementación actual es una demo frontend local; backend, autenticación y persistencia productiva quedan para la siguiente etapa.
 
 ## Qué problema resuelve
 
@@ -11,6 +11,14 @@ La plataforma busca que un negocio pueda publicar sus servicios o productos, rec
 El primer producto recomendado es un sistema de turnos para profesionales de belleza y servicios personalizados. Luego puede extenderse a menús digitales, pedidos, mesas, stock, recetas, fidelización y gestión de inventario.
 
 ## Índice de documentación
+
+### Ejemplos listos para presentar
+
+- [Aurea Turnos](docs/ejemplos/turnos/README.md)
+- [Aurea Restaurante](docs/ejemplos/restaurante/README.md)
+- [Aurea Stock](docs/ejemplos/stock/README.md)
+- [Aurea Mozo](docs/ejemplos/mozo/README.md)
+- [Índice de ejemplos comerciales](docs/ejemplos/README.md)
 
 ### Producto y alcance
 

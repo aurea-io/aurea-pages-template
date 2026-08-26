@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <rect width="1200" height="520" rx="28" fill="#f7f1eb"/>
+  <text x="70" y="82" font-family="Arial" font-size="28" font-weight="700" fill="#263b33">Aurea Turnos · experiencia de reserva</text>
+  <g font-family="Arial" fill="#263b33">
+    <rect x="70" y="150" width="220" height="220" rx="18" fill="#fffdf9" stroke="#ded3c8"/><text x="105" y="205" font-size="20" font-weight="700">1. Servicio</text><text x="105" y="245" font-size="16">Capping</text><text x="105" y="275" font-size="16">Lifting</text><text x="105" y="305" font-size="16">Diseño clásico</text>
+    <rect x="350" y="150" width="220" height="220" rx="18" fill="#fffdf9" stroke="#ded3c8"/><text x="385" y="205" font-size="20" font-weight="700">2. Fecha</text><text x="385" y="250" font-size="16">Jueves 27</text><text x="385" y="285" font-size="16">10:30 · 13:00</text><text x="385" y="320" font-size="16">16:30</text>
+    <rect x="630" y="150" width="220" height="220" rx="18" fill="#fffdf9" stroke="#ded3c8"/><text x="665" y="205" font-size="20" font-weight="700">3. Datos</text><text x="665" y="250" font-size="16">Nombre</text><text x="665" y="285" font-size="16">WhatsApp</text><text x="665" y="320" font-size="16">Consulta opcional</text>
+    <rect x="910" y="150" width="220" height="220" rx="18" fill="#263b33"/><text x="945" y="205" font-size="20" font-weight="700" fill="#fffaf3">4. Confirmación</text><text x="945" y="255" font-size="16" fill="#fffaf3">Código AU-2501</text><text x="945" y="292" font-size="16" fill="#b8cdbd">Turno registrado</text>
+  </g>
+  <path d="M300 260h40m240 0h40m240 0h40" stroke="#d79667" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -8,6 +8,8 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 2. una página pública que el negocio puede compartir con sus clientes;
 3. ejemplos concretos para turnos, restaurante y stock.
 
+Las fichas comerciales independientes están disponibles en [docs/ejemplos/](ejemplos/README.md).
+
 ## Alcance implementado
 
 ### Gestor administrativo
@@ -53,7 +55,7 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 
 ### Gestores adicionales
 
-- Restaurante: pedidos activos, mapa de mesas, cuentas divididas y acciones rápidas.
+- Restaurante: pedidos activos, mapa de mesas, menú, clientes, pagos, caja, QR y acciones rápidas.
 - Stock: inventario, alertas de reposición, movimientos y producción del día.
 - Mozo: vista mobile-first de mesas, pedidos para atender, estados y acciones rápidas.
 

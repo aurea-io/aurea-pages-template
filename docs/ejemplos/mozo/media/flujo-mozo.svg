@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <rect width="1200" height="520" rx="28" fill="#f7f1eb"/>
+  <text x="70" y="82" font-family="Arial" font-size="28" font-weight="700" fill="#263b33">Aurea Mozo · operación de salón</text>
+  <g font-family="Arial" fill="#263b33">
+    <rect x="70" y="150" width="235" height="230" rx="18" fill="#263b33"/><text x="105" y="205" font-size="20" font-weight="700" fill="#fffaf3">Mesas</text><text x="105" y="250" font-size="16" fill="#fffaf3">Ocupadas</text><text x="105" y="285" font-size="16" fill="#b8cdbd">Libres</text><text x="105" y="320" font-size="16" fill="#b8cdbd">Pedir cuenta</text>
+    <rect x="350" y="150" width="235" height="230" rx="18" fill="#fffdf9" stroke="#ded3c8"/><text x="385" y="205" font-size="20" font-weight="700">Prioridad</text><text x="385" y="250" font-size="16">M-203 · Cocina</text><text x="385" y="285" font-size="16">M-205 · Listo</text><text x="385" y="320" font-size="16">Avisos nuevos</text>
+    <rect x="630" y="150" width="235" height="230" rx="18" fill="#fffdf9" stroke="#ded3c8"/><text x="665" y="205" font-size="20" font-weight="700">Acción</text><text x="665" y="250" font-size="16">Ver mesa</text><text x="665" y="285" font-size="16">Marcar listo</text><text x="665" y="320" font-size="16">Entregar</text>
+    <rect x="910" y="150" width="220" height="230" rx="18" fill="#d79667"/><text x="945" y="205" font-size="20" font-weight="700">Servicio</text><text x="945" y="250" font-size="16">Más rápido</text><text x="945" y="285" font-size="16">Más claro</text><text x="945" y="320" font-size="16">Más ordenado</text>
+  </g>
+  <path d="M315 265h35m235 0h35m235 0h35" stroke="#d79667" stroke-width="6" stroke-linecap="round"/>
+</svg>
