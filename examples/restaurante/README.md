@@ -4,6 +4,20 @@
 
 Un menú digital conectado con la mesa para que cada persona pida desde su celular y el restaurante reciba pedidos claros, ordenados y listos para operar.
 
+## Venta
+
+### Speech comercial
+
+“Aurea Restaurante transforma cada mesa en un canal de venta. Tus clientes escanean un QR, entran con su nombre, hacen pedidos desde el celular y pueden compartir platos sin discutir cómo dividirlos. El equipo recibe una operación más clara, el mozo sabe qué atender y el restaurante gana velocidad sin perder el trato cercano.”
+
+### Qué hace
+
+Conecta el menú público, la mesa, los pedidos de cada comensal, los consumos compartidos, el ticket, el gestor del restaurante y la vista operativa del mozo en una misma experiencia.
+
+### Por qué el cliente lo necesita
+
+Porque tomar pedidos a mano genera errores, demoras y cuentas difíciles de separar. La solución reduce confusiones, mejora la rotación de mesas, facilita el consumo compartido y permite que el equipo se concentre en atender mejor.
+
 ![Menú público de La Esquina](media/restaurant-public.png)
 
 ## Para quién es

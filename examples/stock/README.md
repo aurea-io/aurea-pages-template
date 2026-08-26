@@ -4,6 +4,20 @@
 
 Un catálogo simple para vender lo disponible hoy, controlar cantidades y convertir la disponibilidad real en pedidos o reservas.
 
+## Venta
+
+### Speech comercial
+
+“Aurea Stock te permite vender lo que realmente tenés disponible. Tus clientes ven el catálogo actualizado, saben qué queda y pueden reservar sin preguntarte producto por producto. Vos controlás el inventario, detectás qué reponer y convertís una planilla interna en una experiencia de compra clara.”
+
+### Qué hace
+
+Publica productos con precio y disponibilidad, alerta cuando quedan pocas unidades, permite armar una reserva y ofrece al negocio una vista de inventario, movimientos y producción.
+
+### Por qué el cliente lo necesita
+
+Porque vender sin controlar el stock genera pedidos imposibles de cumplir y clientes frustrados. La solución evita sobreventas, comunica la escasez a tiempo y ayuda a producir y reponer con mejores datos.
+
 ![Catálogo público de stock](media/stock-public.png)
 
 ## Para quién es

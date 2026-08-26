@@ -4,6 +4,20 @@
 
 Una página de reservas simple y elegante para que un negocio reciba turnos sin depender de mensajes dispersos por WhatsApp.
 
+## Venta
+
+### Speech comercial
+
+“Aurea Turnos convierte tu agenda en una experiencia simple para tus clientas. Ellas pueden ver tus servicios, elegir un horario y reservar desde un enlace, mientras vos recibís toda la información ordenada en un solo lugar. Así dejás de perder tiempo coordinando mensajes y empezás a llenar tu agenda con menos esfuerzo.”
+
+### Qué hace
+
+Publica los servicios, muestra disponibilidad, toma los datos del cliente, confirma la reserva y deja el turno listo para gestionar desde el panel del negocio.
+
+### Por qué el cliente lo necesita
+
+Porque cada mensaje sin responder puede ser una oportunidad perdida. El sistema atiende reservas fuera de horario, reduce errores de coordinación y transmite una imagen más profesional desde el primer contacto.
+
 ![Página pública de turnos](media/turnos-public.png)
 
 ## Para quién es
