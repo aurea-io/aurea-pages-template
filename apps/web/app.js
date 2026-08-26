@@ -76,6 +76,7 @@ function showToast(message) { clearTimeout(toastTimer); document.querySelector("
 function render() {
   document.querySelector("#app").innerHTML = route.startsWith("admin") ? renderAdmin() : route === "waiter" ? renderWaiter() : route === "restaurant" ? renderRestaurantPublic() : route === "stock" ? renderStockPublic() : renderTurnosPublic();
   bindEvents();
+  if (route === "admin-restaurant") document.querySelectorAll(".panel").forEach((panel) => { if (panel.querySelector("h2")?.textContent.trim() === "División de cuenta") panel.remove(); });
 }
 
 function demoSwitcher(active) { return `<div class="demo-switcher"><span>Ver demo:</span><a class="${active === "public" ? "active" : ""}" href="#public">Turnos</a><a class="${active === "restaurant" ? "active" : ""}" href="#restaurant">Restaurante</a><a class="${active === "stock" ? "active" : ""}" href="#stock">Stock</a></div>`; }
