@@ -371,6 +371,21 @@ h3 { font-size: 16px; }
 .modal-head h2 { font-size: 22px; margin: 0; }
 .close { background: none; border: 0; color: var(--muted); font-size: 21px; }
 .modal-actions { display: flex; gap: 9px; justify-content: flex-end; margin-top: 23px; }
+.manager-modal { max-width: 620px; }
+.manager-highlight { background: #f5eee6; border: 1px solid var(--line); border-radius: 12px; display: grid; gap: 5px; padding: 16px; }
+.manager-highlight strong { color: var(--ink); font: 600 24px "Playfair Display", Georgia, serif; }
+.manager-highlight span, .manager-list-item small, .modal-note { color: var(--muted); font-size: 12px; line-height: 1.45; }
+.manager-grid { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); margin-top: 12px; }
+.manager-grid > div { background: #faf7f2; border: 1px solid var(--line); border-radius: 10px; display: grid; gap: 5px; padding: 13px; }
+.manager-grid small { color: var(--muted); font-size: 10px; }
+.manager-grid strong { font-size: 20px; }
+.manager-list { display: grid; gap: 8px; max-height: 380px; overflow: auto; }
+.manager-list-item { align-items: center; background: #faf7f2; border: 1px solid var(--line); border-radius: 10px; display: flex; gap: 14px; justify-content: space-between; padding: 12px; }
+.manager-list-item > div { display: grid; gap: 4px; }
+.manager-list-item strong { font-size: 13px; }
+.qr-preview { align-items: center; background: #faf7f2; border: 1px solid var(--line); border-radius: 12px; display: flex; flex-direction: column; gap: 9px; padding: 22px; text-align: center; }
+.qr-art { align-items: center; background: #263b33; color: white; display: flex; font-size: 74px; height: 150px; justify-content: center; width: 150px; }
+.qr-preview code { background: white; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font-size: 10px; padding: 7px; }
 .toast { background: #272522; border-radius: 8px; bottom: 22px; color: white; font-size: 13px; left: 50%; padding: 12px 17px; position: fixed; transform: translateX(-50%); z-index: 20; }
 
 @media (max-width: 900px) {

@@ -75,6 +75,7 @@ function showToast(message) { clearTimeout(toastTimer); document.querySelector("
 
 function render() {
   document.querySelector("#app").innerHTML = route.startsWith("admin") ? renderAdmin() : route === "waiter" ? renderWaiter() : route === "restaurant" ? renderRestaurantPublic() : route === "stock" ? renderStockPublic() : renderTurnosPublic();
+  enhanceRestaurantActions();
   bindEvents();
   if (route === "admin-restaurant") document.querySelectorAll(".panel").forEach((panel) => { if (panel.querySelector("h2")?.textContent.trim() === "División de cuenta") panel.remove(); });
 }
@@ -169,3 +170,57 @@ function adminSwitcher(active) {
 
 function renderRestaurantSession() { const partySize = restaurantSession.partySize || 4; if (restaurantSession.name && !restaurantSessionEditing) return `<div class="restaurant-session-card active"><div><span class="session-kicker">Tu sesión en esta mesa</span><strong>${escapeHtml(restaurantSession.name)}</strong><small>Mesa ${escapeHtml(restaurantSession.table || "3")} · ${partySize} personas · Tus pedidos se asignan automáticamente.</small></div><button class="ghost-button" data-action="edit-restaurant-session">Cambiar</button></div>`; return `<div class="restaurant-session-card"><div><span class="session-kicker">Antes de pedir</span><h3>¿Quién está pidiendo?</h3><p>Así cada plato queda asociado a la persona correcta y después dividimos el ticket sin discutir.</p></div><div class="session-form"><div class="field"><label>Tu nombre</label><input id="restaurant-session-name" placeholder="Ej. Yo" value="${escapeHtml(restaurantSession.name || "")}" /></div><div class="field"><label>Mesa</label><input id="restaurant-session-table" inputmode="numeric" placeholder="3" value="${escapeHtml(restaurantSession.table || "3")}" /></div><button class="primary-button" data-action="save-restaurant-session">Entrar a la mesa →</button></div></div>`; }
 render();
+
+function enhanceRestaurantActions() {
+  if (route === "admin-restaurant") {
+    ["summary", "orders", "menu", "clients", "payments"].forEach((panel, index) => { const button = document.querySelectorAll(".sidebar .nav button")[index]; if (button) { button.dataset.action = "open-restaurant-manager"; button.dataset.panel = panel; } });
+    ["open-table", "qr", "cash"].forEach((panel, index) => { const button = document.querySelectorAll(".quick-actions button")[index]; if (button) { button.dataset.action = "open-restaurant-manager"; button.dataset.panel = panel; } });
+    const openTable = [...document.querySelectorAll(".page-heading button")].find((button) => button.textContent.includes("Abrir mesa"));
+    if (openTable) { openTable.dataset.action = "open-restaurant-manager"; openTable.dataset.panel = "open-table"; }
+  }
+  if (route === "waiter") {
+    document.querySelectorAll(".waiter-table-card").forEach((button) => { button.dataset.action = "open-waiter-table"; button.dataset.table = button.querySelector(".table-number")?.textContent.trim() || "3"; });
+    const tabs = document.querySelectorAll(".waiter-tabs button");
+    if (tabs[1]) tabs[1].dataset.action = "open-waiter-orders";
+    if (tabs[2]) tabs[2].dataset.action = "open-waiter-alerts";
+    const openTable = document.querySelector(".waiter-summary .primary-button");
+    if (openTable) { openTable.dataset.action = "open-restaurant-manager"; openTable.dataset.panel = "open-table"; }
+  }
+}
+
+function managerModal(title, content, confirmLabel = "") {
+  const modal = document.createElement("div"); modal.className = "modal-backdrop";
+  modal.innerHTML = `<div class="modal manager-modal"><div class="modal-head"><h2>${title}</h2><button class="close" data-close>×</button></div>${content}<div class="modal-actions"><button class="ghost-button" data-close>Cerrar</button>${confirmLabel ? `<button class="primary-button" data-confirm>${confirmLabel}</button>` : ""}</div></div>`;
+  document.body.appendChild(modal); modal.querySelectorAll("[data-close]").forEach((button) => button.addEventListener("click", () => modal.remove())); return modal;
+}
+
+function openRestaurantManagerPanel(panel) {
+  const orders = state.restaurant.orders;
+  const views = {
+    summary: ["Resumen operativo", `<div class="manager-highlight"><strong>Mesa 3 activa</strong><span>4 personas · ${money(45800)} acumulados</span></div><div class="manager-grid"><div><small>Pedidos abiertos</small><strong>${orders.length + 7}</strong></div><div><small>Esperando cocina</small><strong>4</strong></div><div><small>Mesas ocupadas</small><strong>8 / 14</strong></div></div>`],
+    orders: ["Pedidos activos", `<div class="manager-list">${orders.map((order) => `<div class="manager-list-item"><div><strong>${escapeHtml(order.id)} · ${escapeHtml(order.table)}</strong><small>${order.people} personas · ${money(order.total)}</small></div><span class="status pending">${escapeHtml(order.status)}</span></div>`).join("")}<div class="manager-list-item"><div><strong>Mesa 3 · Pedido abierto</strong><small>Provoleta · limonada · papas compartidas</small></div><span class="status pending">En preparación</span></div></div>`],
+    menu: ["Menú de La Esquina", `<div class="manager-list">${restaurantMenuSections().flatMap((section) => section.items).map((item) => `<div class="manager-list-item"><div><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.description)}</small></div><b>${money(item.price)}</b></div>`).join("")}</div>`],
+    clients: ["Clientes en mesa", `<div class="manager-list">${["Yo", "Lucía", "Martín", "Santi"].map((name, index) => `<div class="manager-list-item"><div><strong>${name}</strong><small>${index === 0 ? "Sesión activa · Mesa 3" : "Participante de la mesa 3"}</small></div><span class="status completed">${index === 0 ? "Activo" : "En mesa"}</span></div>`).join("")}</div>`],
+    payments: ["Pagos del día", `<div class="manager-highlight"><strong>${money(186000)}</strong><span>Venta acumulada del día</span></div><div class="manager-list"><div class="manager-list-item"><div><strong>Pagos confirmados</strong><small>Transferencias y efectivo</small></div><b>${money(141200)}</b></div><div class="manager-list-item"><div><strong>Pendiente de cobro</strong><small>Mesas 3, 4 y 5</small></div><b>${money(44800)}</b></div></div>`],
+    "open-table": ["Abrir mesa", `<div class="form-grid"><div class="field"><label>Número de mesa</label><input id="manager-table-number" value="3" /></div><div class="field"><label>Personas</label><input id="manager-table-people" type="number" value="4" min="1" /></div><div class="field full"><label>Nota para el salón</label><input id="manager-table-note" placeholder="Ej. cumpleaños, silla para bebé..." /></div></div><p class="modal-note">La mesa quedará abierta y lista para compartir por QR.</p>`, "Abrir mesa"],
+    qr: ["QR de mesa 3", `<div class="qr-preview"><div class="qr-art">▦</div><strong>Mesa 3 · La Esquina</strong><small>Escaneá para abrir el menú compartido</small><code>127.0.0.1:4173/apps/web/#restaurant</code></div>`],
+    cash: ["Caja y cobros", `<div class="manager-highlight"><strong>${money(45800)}</strong><span>Total actual de la mesa 3</span></div><div class="manager-list"><div class="manager-list-item"><div><strong>Consumo registrado</strong><small>3 pedidos · 4 personas</small></div><b>${money(45800)}</b></div><div class="manager-list-item"><div><strong>Estado</strong><small>La mesa todavía no pidió la cuenta</small></div><span class="status pending">Abierta</span></div></div>`]
+  }[panel] || ["La Esquina", "<p class=\"modal-note\">Seleccioná una sección del gestor para ver su información.</p>"];
+  const modal = managerModal(views[0], views[1], views[2] || "");
+  modal.querySelector("[data-confirm]")?.addEventListener("click", () => { const table = modal.querySelector("#manager-table-number")?.value || "3"; modal.remove(); showToast(`Mesa ${table} abierta y lista para compartir.`); });
+}
+
+function openWaiterPanel(panel, table) {
+  if (panel === "orders") return managerModal("Pedidos para atender", `<div class="manager-list"><div class="manager-list-item"><div><strong>Mesa 3 · Pedido M-203</strong><small>Provoleta · limonada · burger</small></div><button class="status-button">Marcar listo</button></div><div class="manager-list-item"><div><strong>Mesa 3 · Pedido M-205</strong><small>Ravioles · copa de la casa</small></div><button class="status-button ready-button">Entregar</button></div></div>`);
+  if (panel === "alerts") return managerModal("Avisos del salón", `<div class="manager-highlight"><strong>2 avisos nuevos</strong><span>Una mesa pidió atención y hay un pedido listo.</span></div>`);
+  return managerModal(`Mesa ${table}`, `<div class="manager-highlight"><strong>${table === "3" ? "Mesa ocupada" : "Mesa disponible"}</strong><span>${table === "3" ? "4 personas · $ 45.800 · 2 pedidos para atender" : "Podés abrirla y compartir el QR con los clientes."}</span></div>`);
+}
+
+const baseHandleAction = handleAction;
+handleAction = function(action, element) {
+  if (action === "open-restaurant-manager") return openRestaurantManagerPanel(element.dataset.panel);
+  if (action === "open-waiter-table") return openWaiterPanel("table", element.dataset.table || "3");
+  if (action === "open-waiter-orders") return openWaiterPanel("orders");
+  if (action === "open-waiter-alerts") return openWaiterPanel("alerts");
+  return baseHandleAction(action, element);
+};
