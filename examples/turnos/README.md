@@ -38,3 +38,4 @@ Reduce la fricción para reservar, ordena la agenda y ofrece una presencia digit
 ## Próxima evolución
 
 Disponibilidad real, autenticación, recordatorios, señas y pagos online, cancelaciones y sincronización con calendarios externos.
+

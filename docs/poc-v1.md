@@ -8,7 +8,7 @@ Validar el primer producto con dos superficies conectadas por un mismo modelo de
 2. una página pública que el negocio puede compartir con sus clientes;
 3. ejemplos concretos para turnos, restaurante y stock.
 
-Las fichas comerciales independientes están disponibles en [docs/ejemplos/](ejemplos/README.md).
+Las fichas comerciales independientes están disponibles en [examples/](../examples/README.md). La documentación de cada entregable vive dentro de su propio ejemplo.
 
 ## Alcance implementado
 

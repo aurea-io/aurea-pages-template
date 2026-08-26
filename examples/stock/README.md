@@ -32,3 +32,4 @@ Evita vender productos agotados, comunica escasez de forma clara y reemplaza pla
 ## Próxima evolución
 
 Descuento automático de inventario, recetas y costos, proveedores, pagos, retiro, envíos y reportes de margen.
+

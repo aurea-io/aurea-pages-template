@@ -9,7 +9,6 @@ Esta carpeta contiene la especificación funcional y técnica de Aurea Pages Tem
 | [`producto/`](producto/) | Visión, alcance, investigación y roadmap |
 | [`tecnico/`](tecnico/) | Arquitectura, stack, dominio y seguridad |
 | [`modulos/`](modulos/) | Especificaciones funcionales por módulo |
-| [`ejemplos/`](ejemplos/) | Fichas comerciales separadas por solución, con imágenes y rutas de demo |
 | [`uso/`](uso/) | Flujos de uso y configuración |
 | [`operacion/`](operacion/) | Desarrollo, pruebas y despliegue |
 | [`poc-v1.md`](poc-v1.md) | Alcance y validación del primer entregable ejecutable |
@@ -32,10 +31,3 @@ Esta carpeta contiene la especificación funcional y técnica de Aurea Pages Tem
 5. [Modelo de dominio](tecnico/modelo-de-dominio.md)
 6. Especificación del módulo que se vaya a implementar
 7. [Pruebas](operacion/pruebas.md) y [Despliegue](operacion/despliegue.md)
-
-## Orden recomendado para una presentación comercial
-
-1. [Índice de ejemplos comerciales](ejemplos/README.md)
-2. [Aurea Restaurante](ejemplos/restaurante/README.md)
-3. [Aurea Turnos](ejemplos/turnos/README.md)
-4. [Aurea Stock](ejemplos/stock/README.md)

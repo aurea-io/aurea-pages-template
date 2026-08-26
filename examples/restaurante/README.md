@@ -63,3 +63,4 @@ Mejora la toma de pedidos, reduce confusiones, facilita el consumo compartido y 
 ## Próxima evolución
 
 Sincronización multi-dispositivo real, cocina en tiempo real, impresión de comandas, pagos, cierre de mesa, propinas, reservas y analítica.
+

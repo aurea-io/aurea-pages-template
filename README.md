@@ -14,10 +14,10 @@ El primer producto recomendado es un sistema de turnos para profesionales de bel
 
 ### Ejemplos listos para presentar
 
-- [Aurea Turnos](docs/ejemplos/turnos/README.md)
-- [Aurea Restaurante](docs/ejemplos/restaurante/README.md)
-- [Aurea Stock](docs/ejemplos/stock/README.md)
-- [Índice de ejemplos comerciales](docs/ejemplos/README.md)
+- [Aurea Turnos](examples/turnos/README.md)
+- [Aurea Restaurante](examples/restaurante/README.md)
+- [Aurea Stock](examples/stock/README.md)
+- [Índice de ejemplos comerciales](examples/README.md)
 
 ### Producto y alcance
 
@@ -70,7 +70,7 @@ También está disponible el [índice de documentación](docs/README.md).
 
 ## Inicio rápido de documentación
 
-Como todavía no hay código ejecutable, el punto de entrada es [Desarrollo local](docs/operacion/desarrollo-local.md). Para entender la decisión de producto, leer en este orden:
+Para ejecutar la POC, consultar [Desarrollo local](docs/operacion/desarrollo-local.md). Para entender la decisión de producto, leer en este orden:
 
 1. [Visión y alcance](docs/producto/vision-y-alcance.md)
 2. [Investigación y referencia](docs/producto/investigacion.md)

@@ -11,7 +11,7 @@ Esta sección separa los entregables de la POC por solución comercial. Cada car
 
 ## Cómo presentar los ejemplos
 
-1. Ejecutar la POC desde [apps/web/README.md](../../apps/web/README.md).
+1. Ejecutar la POC desde [apps/web/README.md](../apps/web/README.md).
 2. Abrir el ejemplo correspondiente desde su ruta de demo.
 3. Usar el README de cada carpeta como guion comercial.
 4. Mostrar las imágenes de `media/` como apoyo visual cuando no se esté ejecutando la aplicación.
