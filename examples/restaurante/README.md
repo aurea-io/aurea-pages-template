@@ -64,3 +64,7 @@ Mejora la toma de pedidos, reduce confusiones, facilita el consumo compartido y 
 
 Sincronización multi-dispositivo real, cocina en tiempo real, impresión de comandas, pagos, cierre de mesa, propinas, reservas y analítica.
 
+## Código del ejemplo
+
+- [Dominio y datos de La Esquina](src/restaurant-example.js)
+- La demo ejecutable actual se abre desde `apps/web/#restaurant`, `#admin-restaurant` y `#waiter`.

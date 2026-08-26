@@ -33,3 +33,7 @@ Evita vender productos agotados, comunica escasez de forma clara y reemplaza pla
 
 Descuento automático de inventario, recetas y costos, proveedores, pagos, retiro, envíos y reportes de margen.
 
+## Código del ejemplo
+
+- [Dominio y datos de Stock](src/stock-example.js)
+- La demo ejecutable actual se abre desde `apps/web/#stock` y `#admin-stock`.

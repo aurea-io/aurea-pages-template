@@ -39,3 +39,7 @@ Reduce la fricción para reservar, ordena la agenda y ofrece una presencia digit
 
 Disponibilidad real, autenticación, recordatorios, señas y pagos online, cancelaciones y sincronización con calendarios externos.
 
+## Código del ejemplo
+
+- [Dominio y datos de Turnos](src/turnos-example.js)
+- La demo ejecutable actual se abre desde `apps/web/#public` y `#admin`.

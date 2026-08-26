@@ -16,4 +16,4 @@ Esta sección separa los entregables de la POC por solución comercial. Cada car
 3. Usar el README de cada carpeta como guion comercial.
 4. Mostrar las imágenes de `media/` como apoyo visual cuando no se esté ejecutando la aplicación.
 
-La implementación actual comparte un núcleo visual y de estado en `apps/web/app.js`; las carpetas de esta sección separan las propuestas comerciales y sus entregables. La vista Mozo forma parte del ejemplo Restaurante. La separación técnica por módulos puede abordarse en una siguiente iteración.
+Cada carpeta contiene la documentación, las imágenes y el código de dominio del ejemplo. La vista Mozo forma parte del ejemplo Restaurante. La POC actual todavía mantiene el shell visual y la integración de rutas en `apps/web/app.js`; la migración completa de cada UI a su carpeta es la siguiente etapa técnica.
