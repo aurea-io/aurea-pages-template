@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BackOffice Cliente</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1 id="tenantName">Cargando...</h1>
+        <p>Panel de Administración del Negocio</p>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">← Volver al Inicio</a>
+      </div>
+    </header>
+
+    <div class="glass-panel">
+      <h2>Mi Negocio</h2>
+      <p>Configura las opciones de tu establecimiento. Las secciones visibles dependen de las características habilitadas en tu plan.</p>
+      
+      <div class="grid grid-cols-2 mt-8">
+        
+        <!-- Módulo: Menú/Catálogo -->
+        <div id="module-menu" class="card hidden">
+          <div class="flex justify-between items-center">
+            <h3>Mi Catálogo / Menú</h3>
+            <span class="badge active">Habilitado</span>
+          </div>
+          <p>Gestiona tus productos o servicios ofrecidos.</p>
+          <div class="form-group mt-4">
+            <label>Ítems (Separados por coma)</label>
+            <textarea id="val-menu" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+
+        <!-- Módulo: Delivery -->
+        <div id="module-delivery" class="card hidden">
+          <div class="flex justify-between items-center">
+            <h3>Delivery</h3>
+            <span class="badge active">Habilitado</span>
+          </div>
+          <p>Gestiona el estado de tu delivery.</p>
+          <div class="mt-4">
+            <label class="checkbox-group">
+              <input type="checkbox" id="val-delivery">
+              <strong>Delivery Activo en este momento</strong>
+            </label>
+          </div>
+        </div>
+
+        <!-- Módulo: Reservas -->
+        <div id="module-reservations" class="card hidden">
+          <div class="flex justify-between items-center">
+            <h3>Reservas y Turnos</h3>
+            <span class="badge active">Habilitado</span>
+          </div>
+          <p>La configuración de reservas está activa según tu plan.</p>
+          <button class="btn outline mt-4">Gestionar Agenda</button>
+        </div>
+
+        <!-- Módulo: Social -->
+        <div id="module-social" class="card hidden">
+          <div class="flex justify-between items-center">
+            <h3>Redes Sociales</h3>
+            <span class="badge premium">Premium</span>
+          </div>
+          <p>Configura tus links de redes sociales para tus clientes.</p>
+          <div class="form-group mt-4">
+            <label>Usuario / Enlace</label>
+            <input type="text" id="val-social" class="form-control" placeholder="@usuario">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-8 flex" style="justify-content: flex-end;">
+         <button id="btnSave" class="btn">Guardar Mis Configuraciones</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const store = window.aureaStore;
+      const tenant = store.getCurrentTenant();
+
+      document.getElementById('tenantName').textContent = tenant.name;
+
+      // Aplicar dinamicamente qué módulos se ven según Feature Flags
+      if (tenant.features.menu) document.getElementById('module-menu').classList.remove('hidden');
+      if (tenant.features.delivery) document.getElementById('module-delivery').classList.remove('hidden');
+      if (tenant.features.reservations) document.getElementById('module-reservations').classList.remove('hidden');
+      if (tenant.features.social) document.getElementById('module-social').classList.remove('hidden');
+
+      // Cargar datos del cliente
+      const cd = tenant.clientData;
+      document.getElementById('val-menu').value = cd.menuItems ? cd.menuItems.join(', ') : '';
+      document.getElementById('val-delivery').checked = cd.deliveryActive;
+      document.getElementById('val-social').value = cd.socialLinks || '';
+
+      // Guardar
+      document.getElementById('btnSave').addEventListener('click', () => {
+        const newData = {
+          menuItems: document.getElementById('val-menu').value.split(',').map(s => s.trim()).filter(Boolean),
+          deliveryActive: document.getElementById('val-delivery').checked,
+          socialLinks: document.getElementById('val-social').value
+        };
+        store.updateClientData(newData);
+        alert('Datos del negocio actualizados.');
+      });
+    });
+  </script>
+</body>
+</html>

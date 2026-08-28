@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AUREA POC - Inicio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>AUREA Platform POC</h1>
+      <div class="nav-links">
+        <a href="index.html" class="active">Inicio</a>
+      </div>
+    </header>
+
+    <div class="glass-panel mt-8">
+      <h2>Simulador de Entorno</h2>
+      <p>Selecciona la empresa activa (Tenant) para simular el comportamiento en el BackOffice Cliente y en la App Frontend.</p>
+      
+      <div class="form-group" style="max-width: 300px;">
+        <label for="tenantSelect">Empresa Activa (Tenant):</label>
+        <select id="tenantSelect" class="form-control">
+          <!-- Populated via JS -->
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 mt-8">
+      <div class="card">
+        <h3>1. BackOffice AUREA</h3>
+        <p>Panel para el administrador del sistema. Permite asignar planes y encender/apagar funcionalidades (Feature Flags) por empresa.</p>
+        <a href="aurea.html" class="btn mt-4">Abrir Admin</a>
+      </div>
+
+      <div class="card">
+        <h3>2. BackOffice Cliente</h3>
+        <p>Panel para el dueño del negocio. Se adapta dinámicamente mostrando solo las opciones que AUREA le habilitó.</p>
+        <a href="client.html" class="btn mt-4">Abrir Panel de Cliente</a>
+      </div>
+
+      <div class="card">
+        <h3>3. Frontend App</h3>
+        <p>Aplicación para el consumidor final. Los módulos visibles (menú, reservas, delivery) dependen de la configuración del tenant activo.</p>
+        <a href="frontend.html" class="btn outline mt-4">Abrir App Cliente Final</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const select = document.getElementById('tenantSelect');
+      const store = window.aureaStore;
+      
+      const establishments = store.getEstablishments();
+      const currentTenantId = store.getData().currentTenantId;
+
+      establishments.forEach(est => {
+        const option = document.createElement('option');
+        option.value = est.id;
+        option.textContent = `${est.name} (${est.sector})`;
+        if (est.id === currentTenantId) option.selected = true;
+        select.appendChild(option);
+      });
+
+      select.addEventListener('change', (e) => {
+        store.setCurrentTenant(e.target.value);
+        alert('Tenant actualizado. Ahora las vistas de Cliente y Frontend usarán estos datos.');
+      });
+    });
+  </script>
+</body>
+</html>

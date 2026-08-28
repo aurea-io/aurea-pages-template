@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Cliente Final</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilos extra para simular una app móvil en desktop */
+    .mobile-wrapper {
+      max-width: 414px;
+      margin: 0 auto;
+      background: var(--bg-dark);
+      border: 8px solid #1e293b;
+      border-radius: 40px;
+      overflow: hidden;
+      height: 800px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .app-header {
+      padding: 3rem 2rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      text-align: center;
+      border-radius: 0 0 24px 24px;
+    }
+    .app-header h1 { margin: 0; font-size: 1.8rem; color: white; -webkit-text-fill-color: white;}
+    .app-header p { color: rgba(255,255,255,0.8); margin: 0.5rem 0 0; }
+    
+    .app-content {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .app-section {
+      background: var(--bg-panel);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .app-section h3 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--primary); }
+
+    .menu-item {
+      padding: 1rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .status-indicator {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .status-indicator.on { background: var(--success); box-shadow: 0 0 8px var(--success); }
+    .status-indicator.off { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <a href="index.html" style="color:var(--text-muted);">← Volver al Inicio</a>
+    </div>
+
+    <div class="mobile-wrapper">
+      <div class="app-header">
+        <h1 id="app-title">Cargando...</h1>
+        <p id="app-subtitle">App Oficial</p>
+      </div>
+
+      <div class="app-content">
+        
+        <!-- Módulo Delivery Info (Se inyecta si aplica) -->
+        <div id="ui-delivery" class="app-section hidden" style="text-align:center;">
+          <h3 style="margin-bottom: 0.5rem;">Estado del Delivery</h3>
+          <div style="font-size: 1.2rem; font-weight: 600; display:flex; align-items:center; justify-content:center;">
+            <span id="del-status-icon" class="status-indicator"></span>
+            <span id="del-status-text">Cargando...</span>
+          </div>
+        </div>
+
+        <!-- Módulo Reservas -->
+        <div id="ui-reservations" class="app-section hidden">
+          <h3>Reservar Turno/Mesa</h3>
+          <p style="font-size: 0.9rem;">Agenda tu visita rápidamente con nosotros.</p>
+          <button class="btn w-full" style="width:100%">Reservar Ahora</button>
+        </div>
+
+        <!-- Módulo Menú -->
+        <div id="ui-menu" class="app-section hidden">
+          <h3>Nuestro Catálogo</h3>
+          <div id="menu-list"></div>
+        </div>
+
+        <!-- Módulo Redes Sociales -->
+        <div id="ui-social" class="app-section hidden" style="text-align:center;">
+          <h3>Síguenos</h3>
+          <a href="#" id="social-link" class="btn outline" style="width:100%">Ver Redes</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const store = window.aureaStore;
+      const tenant = store.getCurrentTenant();
+
+      // UI Texts
+      document.getElementById('app-title').textContent = tenant.name;
+      document.getElementById('app-subtitle').textContent = tenant.sector;
+
+      // Dynamic Render based on features
+      if (tenant.features.delivery) {
+        document.getElementById('ui-delivery').classList.remove('hidden');
+        const dIcon = document.getElementById('del-status-icon');
+        const dText = document.getElementById('del-status-text');
+        
+        if (tenant.clientData.deliveryActive) {
+          dIcon.classList.add('on');
+          dText.textContent = "Abierto para Pedidos";
+        } else {
+          dIcon.classList.add('off');
+          dText.textContent = "Cerrado por ahora";
+        }
+      }
+
+      if (tenant.features.reservations) {
+        document.getElementById('ui-reservations').classList.remove('hidden');
+      }
+
+      if (tenant.features.menu) {
+        document.getElementById('ui-menu').classList.remove('hidden');
+        const list = document.getElementById('menu-list');
+        if(tenant.clientData.menuItems && tenant.clientData.menuItems.length > 0) {
+          tenant.clientData.menuItems.forEach(item => {
+            const d = document.createElement('div');
+            d.className = 'menu-item';
+            d.textContent = item;
+            list.appendChild(d);
+          });
+        } else {
+          list.innerHTML = '<p>Aún no hay ítems cargados.</p>';
+        }
+      }
+
+      if (tenant.features.social) {
+        document.getElementById('ui-social').classList.remove('hidden');
+        document.getElementById('social-link').textContent = tenant.clientData.socialLinks || 'Síguenos en Redes';
+      }
+
+    });
+  </script>
+</body>
+</html>

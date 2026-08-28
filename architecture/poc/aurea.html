@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AUREA BackOffice</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>AUREA BackOffice <span>(Admin)</span></h1>
+      <div class="nav-links">
+        <a href="index.html">← Volver al Inicio</a>
+      </div>
+    </header>
+
+    <div class="glass-panel">
+      <h2>Gestión de Establecimientos y Feature Flags</h2>
+      <p>Configura las características habilitadas para cada negocio en la plataforma.</p>
+      
+      <div id="establishmentsList" class="grid grid-cols-2 mt-8">
+        <!-- Generado por JS -->
+      </div>
+    </div>
+  </div>
+
+  <script src="store.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const store = window.aureaStore;
+      const listContainer = document.getElementById('establishmentsList');
+
+      function render() {
+        listContainer.innerHTML = '';
+        const establishments = store.getEstablishments();
+
+        establishments.forEach(est => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          
+          card.innerHTML = `
+            <div class="flex justify-between items-center">
+              <h3>${est.name}</h3>
+              <span class="badge ${est.plan === 'premium' ? 'premium' : 'active'}">${est.plan.toUpperCase()}</span>
+            </div>
+            <p class="text-sm">Rubro: ${est.sector}</p>
+            
+            <div class="mt-4 form-group">
+              <label>Plan:</label>
+              <select id="plan-${est.id}" class="form-control mb-4" style="margin-bottom: 1rem;">
+                <option value="basic" ${est.plan === 'basic' ? 'selected' : ''}>Básico</option>
+                <option value="premium" ${est.plan === 'premium' ? 'selected' : ''}>Premium</option>
+              </select>
+            </div>
+
+            <label style="color:var(--text-muted); font-weight:500;">Funcionalidades (Feature Flags):</label>
+            <div class="mt-2" style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label class="checkbox-group">
+                <input type="checkbox" id="f-menu-${est.id}" ${est.features.menu ? 'checked' : ''}>
+                Catálogo / Menú
+              </label>
+              <label class="checkbox-group">
+                <input type="checkbox" id="f-res-${est.id}" ${est.features.reservations ? 'checked' : ''}>
+                Reservas / Turnos
+              </label>
+              <label class="checkbox-group">
+                <input type="checkbox" id="f-del-${est.id}" ${est.features.delivery ? 'checked' : ''}>
+                Delivery
+              </label>
+              <label class="checkbox-group">
+                <input type="checkbox" id="f-soc-${est.id}" ${est.features.social ? 'checked' : ''}>
+                Redes Sociales
+              </label>
+            </div>
+
+            <button class="btn mt-4 w-full" onclick="saveEst('${est.id}')" style="width:100%">Guardar Configuración</button>
+          `;
+          listContainer.appendChild(card);
+        });
+      }
+
+      window.saveEst = (id) => {
+        const plan = document.getElementById(`plan-${id}`).value;
+        const features = {
+          menu: document.getElementById(`f-menu-${id}`).checked,
+          reservations: document.getElementById(`f-res-${id}`).checked,
+          delivery: document.getElementById(`f-del-${id}`).checked,
+          social: document.getElementById(`f-soc-${id}`).checked,
+        };
+        store.updateEstablishmentFeatures(id, features, plan);
+        alert('Configuración actualizada correctamente');
+        render();
+      };
+
+      render();
+    });
+  </script>
+</body>
+</html>
