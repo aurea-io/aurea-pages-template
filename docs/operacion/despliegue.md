@@ -6,14 +6,11 @@ Se recomienda separar desarrollo, staging y producción. Cada ambiente debe tene
 
 ## Pipeline
 
-1. Instalar dependencias reproduciblemente.
-2. Ejecutar formato y lint.
-3. Verificar tipos.
-4. Ejecutar unitarias e integración.
-5. Construir API y frontend.
-6. Ejecutar migraciones de manera controlada.
-7. Publicar artefactos.
-8. Ejecutar smoke tests.
+1. Instalar Node.js 22 y validar con `npm install`, `npm run check` y `npm test`.
+2. Construir la imagen Docker como usuario no root.
+3. Publicar la imagen en GHCR al crear un release.
+4. Ejecutar el healthcheck y, opcionalmente, el autodeployer local.
+5. Avisar el resultado por Telegram si están configurados `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHAT_ID`.
 
 ## Backups
 
@@ -25,7 +22,11 @@ Se recomienda separar desarrollo, staging y producción. Cada ambiente debe tene
 
 ## Observabilidad
 
-Registrar métricas de disponibilidad, errores, latencia, reservas creadas, pagos fallidos y webhooks rechazados. Los logs deben incluir un identificador de correlación y excluir secretos y datos sensibles.
+La aplicación expone logs JSON en stdout y `logs/aurea.log`, además de `/metrics` para Prometheus. Registrar disponibilidad, errores y latencia; excluir secretos y datos sensibles. Las métricas de negocio se agregarán cuando exista backend.
+
+## Autodeployer opcional
+
+En un host Linux con Docker, copiar `deploy/.env.example` a `../aurea-data/.env` y ejecutar `sudo scripts/deployment/install-autodeployer.sh`. El servicio consulta la imagen publicada cada cinco minutos y conserva el lock de despliegue. No es necesario para desarrollo ni para el hosting gestionado.
 
 ## Mantenimiento
 

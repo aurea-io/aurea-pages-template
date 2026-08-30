@@ -67,6 +67,10 @@ También está disponible el [índice de documentación](docs/README.md).
 | API | HTTP REST versionada | Propuesta |
 | Pagos | Adaptador para Mercado Pago | Requerido para la primera versión comercial |
 | Calidad | Unitarias, integración y E2E | Requerido |
+| Servidor de la POC | Node.js 22, HTTP nativo | Implementado |
+| Contenedores | Docker Compose | Implementado |
+| Observabilidad | Logs JSON + Prometheus + Grafana | Implementado |
+| Publicación | GitHub Actions + GHCR | Configurado |
 
 ## Inicio rápido de documentación
 
@@ -77,6 +81,17 @@ Para ejecutar la POC, consultar [Desarrollo local](docs/operacion/desarrollo-loc
 3. [Arquitectura](docs/tecnico/arquitectura.md)
 4. [Catálogo y turnos](docs/modulos/turnos.md)
 5. [Pruebas](docs/operacion/pruebas.md)
+
+## Operación local
+
+La POC se puede servir con `npm start` en `http://localhost:4173` o con
+`docker compose up -d`. Compose incluye Prometheus (`localhost:9090`) y Grafana
+(`localhost:3000`) con un dashboard operativo provisionado. La aplicación
+expone `/health` y `/metrics` y escribe logs JSON en stdout y `logs/aurea.log`.
+
+La publicación de imágenes y el aviso opcional por Telegram están definidos en
+GitHub Actions. El autodeployer Linux es opcional y está documentado en
+[Despliegue y operación](docs/operacion/despliegue.md).
 
 ## Principios del proyecto
 

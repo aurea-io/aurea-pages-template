@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: es-AR
+reviews:
+  profile: chill
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  path_instructions:
+    - path: "server.js"
+      instructions: |
+        Revisar traversal seguro, códigos HTTP, manejo de errores, apagado limpio,
+        logs estructurados sin secretos y métricas Prometheus con labels de baja cardinalidad.
+    - path: "apps/web/**/*.js"
+      instructions: |
+        Revisar XSS, persistencia local, accesibilidad, eventos y que la lógica de
+        presentación no introduzca secretos ni dependencias de backend implícitas.
+    - path: "Dockerfile"
+      instructions: |
+        Exigir imagen reproducible, usuario no root, healthcheck, contexto mínimo
+        y que no se incorporen secretos ni artefactos locales.
+    - path: "compose.yaml"
+      instructions: |
+        Revisar versiones fijadas, puertos expuestos solo en loopback, persistencia
+        de logs y Grafana/Prometheus, healthchecks y configuración por variables.
+    - path: ".github/workflows/**"
+      instructions: |
+        Revisar permisos mínimos, acciones fijadas a versiones mayores, secretos y
+        que los workflows validen el proyecto Node antes de publicar imágenes.
+    - path: "monitoring/**"
+      instructions: |
+        No incluir datos personales, prompts ni secretos en métricas o dashboards;
+        usar rate/increase para contadores y labels de cardinalidad controlada.
+    - path: "docs/**"
+      instructions: |
+        Mantener la documentación alineada con la POC estática y el stack Node/Docker.
+chat:
+  auto_reply: true

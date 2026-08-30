@@ -1,0 +1,24 @@
+name: Security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  codeql:
+    name: CodeQL JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+      - uses: github/codeql-action/analyze@v3
+        with:
+          category: /language:javascript

@@ -2,26 +2,23 @@
 
 ## Estado actual
 
-El repositorio aún no contiene `package.json`, aplicaciones ni migraciones. Esta guía describe el entorno objetivo para la primera implementación y debe actualizarse cuando se cree el código.
+La POC se sirve con Node.js y puede ejecutarse directamente o mediante Docker Compose. No hay backend ni migraciones en esta etapa.
 
 ## Requisitos esperados
 
 - Node.js en versión LTS definida por el proyecto.
-- Gestor de paquetes elegido por el equipo.
-- PostgreSQL local o mediante Docker.
+- npm incluido con Node.js 22 o superior.
 - Git.
-- Cuenta sandbox del proveedor de pagos cuando se implemente esa integración.
+- Docker y Docker Compose para observabilidad local.
 
 ## Flujo de trabajo
 
 1. Crear una rama de trabajo desde `main`.
-2. Instalar dependencias.
-3. Copiar `.env.example` a `.env`.
-4. Iniciar servicios locales.
-5. Ejecutar migraciones y seeds de desarrollo.
-6. Levantar API y frontend.
-7. Ejecutar lint, tipos y pruebas.
-8. Actualizar documentación si cambia una decisión.
+2. Ejecutar `npm install` y `npm run check`.
+3. Ejecutar `npm test`.
+4. Levantar la aplicación con `npm start` o `docker compose up -d`.
+5. Con Docker Compose, revisar `/health`, Prometheus en `localhost:9090` y Grafana en `localhost:3000`.
+6. Actualizar documentación si cambia una decisión.
 
 ## Convenciones
 
