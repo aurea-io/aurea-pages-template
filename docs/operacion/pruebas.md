@@ -36,3 +36,11 @@ Validan que frontend, API e integraciones externas respeten los esquemas publica
 ## Calidad mínima
 
 Antes de integrar cambios deben pasar formato, lint, chequeo de tipos, pruebas y build. La cobertura es una señal, no reemplaza los casos de negocio críticos.
+# Pruebas
+
+## POC actual
+
+El CI valida la sintaxis del servidor Node, los contratos de `/health` y
+`/metrics`, los tests de Node y la construcción de la imagen Docker. La POC
+frontend se ejecuta como un script de navegador y se mantiene fuera del
+chequeo de sintaxis del servidor hasta su migración a módulos.
