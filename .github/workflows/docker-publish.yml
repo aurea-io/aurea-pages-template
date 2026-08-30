@@ -80,3 +80,37 @@ jobs:
             exit 1
           fi
           echo "Telegram notificado en ${sent} chat(s)."
+
+  notify-discord:
+    name: Notify Discord
+    needs: publish
+    if: ${{ needs.publish.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Discord webhooks
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || format('v{0}', inputs.version) }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${DISCORD_WEBHOOK_URL}" ]]; then
+            echo "Discord no configurado; se omite el aviso."
+            exit 0
+          fi
+          message=$(printf 'Aurea publicada 🚀\\nTag: %s\\nCommit: %.7s' "${RELEASE_TAG}" "${GITHUB_SHA}")
+          sent=0
+          IFS='|' read -ra webhooks <<< "${DISCORD_WEBHOOK_URL}"
+          for webhook in "${webhooks[@]}"; do
+            webhook="$(echo "${webhook}" | xargs)"
+            [[ -z "${webhook}" ]] && continue
+            curl --fail --silent --show-error --request POST \
+              --header 'content-type: application/json' \
+              --data "$(printf '%s' "${message}" | python3 -c 'import json,sys; print(json.dumps({"content": sys.stdin.read()}))')" \
+              "${webhook}"
+            sent=$((sent + 1))
+          done
+          if [[ "${sent}" -eq 0 ]]; then
+            echo "DISCORD_WEBHOOK_URL no contiene ningún webhook válido." >&2
+            exit 1
+          fi
+          echo "Discord notificado en ${sent} webhook(s)."

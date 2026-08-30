@@ -15,6 +15,10 @@ Se recomienda separar desarrollo, staging y producción. Cada ambiente debe tene
 `TELEGRAM_CHAT_ID` admite varios destinatarios separados por `|`, por ejemplo
 `-1001234567890|-1009876543210`. Se envía el mismo aviso a cada chat.
 
+Discord se configura con el secret `DISCORD_WEBHOOK_URL`. También admite varios
+webhooks separados por `|`. Telegram y Discord son opcionales: si faltan sus
+secrets, la publicación de la imagen no falla.
+
 ## Backups
 
 - Backup automático de PostgreSQL.
