@@ -23,6 +23,10 @@ La POC se sirve con Node.js y puede ejecutarse directamente o mediante Docker Co
 ## Convenciones
 
 - Commits pequeños y descriptivos.
+- Todos los commits deben usar Conventional Commits: `feat:`, `fix:`, `perf:`,
+  `refactor:`, `docs:`, `build:`, `chore:`, `test:`, `ci:` o `revert:`.
+- Se admite un ámbito (`feat(web): ...`) y `!` indica un cambio incompatible
+  (`feat!: ...`). `feat` aumenta minor; `fix` y el resto aumentan patch.
 - Una responsabilidad por pull request.
 - No mezclar refactors con cambios funcionales grandes.
 - No subir secretos, dumps ni datos personales.

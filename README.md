@@ -93,6 +93,9 @@ La publicación de imágenes y el aviso opcional por Telegram están definidos e
 GitHub Actions. El autodeployer Linux es opcional y está documentado en
 [Despliegue y operación](docs/operacion/despliegue.md).
 
+Los commits deben seguir Conventional Commits (`feat:`, `fix:`, `docs:`,
+`chore:`, etc.); el autotagger usa esa convención para calcular la versión.
+
 ## Principios del proyecto
 
 1. Validar un producto pequeño antes de construir una suite completa.

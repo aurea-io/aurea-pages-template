@@ -1,0 +1,19 @@
+name: Commit policy
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  conventional-commits:
+    name: Validate Conventional Commits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate commit messages
+        run: scripts/release/validate-commits.sh "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
