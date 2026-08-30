@@ -53,6 +53,8 @@ jobs:
         run: |
           set -euo pipefail
           tag="v${VERSION}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag -a "${tag}" "${GITHUB_SHA}" -m "Release ${tag}"
           git push origin "${tag}"
           gh release create "${tag}" --target "${GITHUB_SHA}" --title "${tag}" --generate-notes
