@@ -97,7 +97,7 @@ jobs:
             echo "Discord no configurado; se omite el aviso."
             exit 0
           fi
-          message=$(printf 'Aurea publicada 🚀\\nTag: %s\\nCommit: %.7s' "${RELEASE_TAG}" "${GITHUB_SHA}")
+          message=$(printf 'Aurea publicada 🚀\nTag: %s\nCommit: %.7s' "${RELEASE_TAG}" "${GITHUB_SHA}")
           sent=0
           IFS='|' read -ra webhooks <<< "${DISCORD_WEBHOOK_URL}"
           for webhook in "${webhooks[@]}"; do
