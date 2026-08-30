@@ -12,6 +12,9 @@ Se recomienda separar desarrollo, staging y producción. Cada ambiente debe tene
 4. Ejecutar el healthcheck y, opcionalmente, el autodeployer local.
 5. Avisar el resultado por Telegram si están configurados `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHAT_ID`.
 
+`TELEGRAM_CHAT_ID` admite varios destinatarios separados por `|`, por ejemplo
+`-1001234567890|-1009876543210`. Se envía el mismo aviso a cada chat.
+
 ## Backups
 
 - Backup automático de PostgreSQL.

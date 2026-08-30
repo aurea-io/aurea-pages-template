@@ -64,7 +64,19 @@ jobs:
             exit 0
           fi
           message=$(printf 'Aurea publicada 🚀\nTag: %s\nCommit: %.7s' "${RELEASE_TAG}" "${GITHUB_SHA}")
-          curl --fail --silent --show-error --request POST \
-            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${message}" \
-            "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage"
+          sent=0
+          IFS='|' read -ra chat_ids <<< "${TELEGRAM_CHAT_ID}"
+          for chat_id in "${chat_ids[@]}"; do
+            chat_id="$(echo "${chat_id}" | xargs)"
+            [[ -z "${chat_id}" ]] && continue
+            curl --fail --silent --show-error --request POST \
+              --data-urlencode "chat_id=${chat_id}" \
+              --data-urlencode "text=${message}" \
+              "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage"
+            sent=$((sent + 1))
+          done
+          if [[ "${sent}" -eq 0 ]]; then
+            echo "TELEGRAM_CHAT_ID no contiene ningún chat válido." >&2
+            exit 1
+          fi
+          echo "Telegram notificado en ${sent} chat(s)."
