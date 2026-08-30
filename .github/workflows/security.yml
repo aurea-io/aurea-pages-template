@@ -7,20 +7,31 @@ on:
 
 permissions:
   contents: read
-  actions: read
-  security-events: write
 
 jobs:
-  codeql:
-    name: CodeQL JavaScript
+  repository-security:
+    name: Dependency and secret scan
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
-      - uses: github/codeql-action/init@v3
+      - uses: actions/setup-node@v4
         with:
-          languages: javascript
-      - uses: github/codeql-action/analyze@v3
-        with:
-          category: /language:javascript
+          node-version: 22
+          cache: npm
+      - name: Audit npm dependencies
+        run: npm audit --audit-level=high
+      - name: Install Gitleaks
+        run: |
+          set -euo pipefail
+          version=8.24.2
+          curl --fail --silent --show-error --location \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${version}/gitleaks_${version}_linux_x64.tar.gz" \
+            --output /tmp/gitleaks.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          sudo install /tmp/gitleaks /usr/local/bin/gitleaks
+      - name: Scan repository history for secrets
+        run: gitleaks git --redact --exit-code 1
