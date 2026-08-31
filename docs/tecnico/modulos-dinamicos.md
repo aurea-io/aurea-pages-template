@@ -41,6 +41,30 @@ La recomendación es modelar el catálogo como datos versionados y establemente 
 
 `Module` es una unidad técnica/comercial; `Section`, `Page` y `Feature` son la jerarquía de navegación y configuración. No conviene usar el nombre de una ruta como permiso: las rutas cambian, las keys públicas deben ser estables.
 
+## 2.1 Dos backoffices, dos responsabilidades
+
+La plataforma necesita dos superficies separadas:
+
+| Superficie | Quién la usa | Responsabilidad |
+| --- | --- | --- |
+| **Backoffice AUREA** | Owner / Readonly | Gestionar planes, membresías, precios, tenants, catálogo de módulos y mantenimiento global |
+| **Backoffice del cliente** | Usuarios de una empresa | Gestionar el negocio de un tenant: reservas, clientes, productos, pedidos y configuración habilitada |
+
+El backoffice AUREA no es una versión más amplia del backoffice de cliente. Tiene un contexto de plataforma y puede operar sobre muchos tenants; el backoffice de cliente siempre está limitado a uno. La separación debe existir en rutas, layouts, permisos y auditoría:
+
+```text
+/platform/*       → Backoffice AUREA
+/tenant/:tenant/*  → Backoffice del cliente
+/public/:slug/*    → Página pública final del tenant
+```
+
+Los únicos roles iniciales del backoffice AUREA son:
+
+- `owner`: lectura y escritura de planes, tenants, módulos, mantenimientos y membresías;
+- `readonly`: lectura y reportes, sin mutaciones.
+
+Los roles del cliente (`tenant_admin`, `operator`, etc.) no deben reutilizarse para conceder acceso al backoffice AUREA. La autorización debe comprobar tanto `scope` (`platform` o `tenant`) como el permiso.
+
 ## 3. Arquitectura recomendada
 
 ```mermaid
@@ -152,6 +176,13 @@ Catálogo global controlado por owners. No contiene datos propios de una empresa
   name: 'Subir foto a la reserva',
   description: 'Permite adjuntar una imagen desde la página de una reserva',
   status: 'active', // draft | active | deprecated | retired
+  maintenance: {
+    enabled: false,
+    message: null,
+    startsAt: null,
+    endsAt: null,
+    changedBy: null
+  },
   version: 1,
   dependencies: ['services.bookings'],
   requiredPermissions: ['bookings:write'],
@@ -171,6 +202,8 @@ Catálogo global controlado por owners. No contiene datos propios de una empresa
 
 El catálogo puede generarse automáticamente desde manifiestos en código y sincronizarse con un job idempotente. Los owners siguen aprobando el alta, el nombre comercial, el plan y el estado de publicación; automatizar el descubrimiento no significa permitir que código no revisado se active solo.
 
+El estado `maintenance.enabled` es una pausa operativa global. Sirve para deshabilitar temporalmente una función o módulo por un incidente o despliegue, sin modificar lo que cada tenant contrató. El frontend puede mostrar un mensaje de mantenimiento; el backend debe responder `503 CAPABILITY_MAINTENANCE` para operaciones de escritura.
+
 ### 5.3 `plans`
 
 ```js
@@ -179,6 +212,8 @@ El catálogo puede generarse automáticamente desde manifiestos en código y sin
   key: 'pro',
   name: 'Pro',
   status: 'active',
+  price: { amount: 29900, currency: 'ARS', interval: 'month' },
+  membershipPolicy: { trialDays: 14, gracePeriodDays: 3 },
   capabilityRules: [
     { key: 'services', effect: 'allow' },
     { key: 'services.bookings', effect: 'allow' },
@@ -191,6 +226,8 @@ El catálogo puede generarse automáticamente desde manifiestos en código y sin
   updatedAt: ISODate('2026-08-20T12:00:00Z')
 }
 ```
+
+Planes, membresías y precios se administran desde el backoffice AUREA. El precio debe tener moneda e intervalo explícitos; los cambios no deben sobrescribir el precio histórico de facturas o suscripciones existentes. Para producción conviene guardar una versión o `priceId` inmutable.
 
 Para catálogos grandes, `capabilityRules` puede normalizarse en `plan_entitlements`; para el POC embebido facilita leer el plan completo. El plan no debe ser editable por un usuario del tenant.
 
@@ -459,6 +496,30 @@ sequenceDiagram
   UI-->>Admin: Confirma y actualiza preview
 ```
 
+En el backoffice AUREA, la navegación principal debe priorizar:
+
+```text
+Planes y membresías
+Tenants
+Módulos y categorías
+Mantenimiento
+Usuarios y roles
+Auditoría
+```
+
+En el backoffice del cliente, el árbol se filtra por las capabilities efectivas del tenant y se presenta con el vocabulario del rubro:
+
+```text
+Negocio
+├── Reservas        (si services.bookings está activo)
+├── Clientes        (si customers está activo)
+├── Menú / Catálogo (según vertical)
+├── Pedidos         (si orders está activo)
+└── Pagos           (si payments está activo)
+```
+
+La página final pública también se selecciona por vertical (`turnos`, `restaurante`, `stock`, etc.), pero sus bloques concretos se resuelven con el mismo mapa de capabilities. Así se evita que una página pública muestre un formulario para una función que el tenant desactivó.
+
 ## 11. Descubrimiento automático del catálogo
 
 La opción equilibrada es un registro híbrido:
@@ -470,6 +531,20 @@ La opción equilibrada es un registro híbrido:
 5. retirar una feature la marca como `deprecated`/`retired`, nunca la borra si hay datos históricos.
 
 Esto reduce duplicación entre código y admin, pero conserva control sobre precios, copy comercial y compatibilidad. No se recomienda inferir capabilities leyendo nombres de carpetas en runtime: es frágil, difícil de versionar y no expresa dependencias ni permisos.
+
+El descubrimiento debe sincronizar solo la definición técnica. La activación global, la categoría comercial, el precio del plan y el mantenimiento siguen siendo decisiones del owner:
+
+```mermaid
+flowchart LR
+  MANIFEST[Manifest en Nest/React] --> SYNC[Sync CI/deploy]
+  SYNC --> CATALOG[module_catalog]
+  OWNER[Owner AUREA] --> CATALOG
+  OWNER --> PLANS[Planes + precios]
+  OWNER --> TENANTS[Tenants + membresías]
+  CATALOG --> CLIENT[Backoffice cliente]
+  PLANS --> CLIENT
+  TENANTS --> CLIENT
+```
 
 ## 12. Ciclo de vida y datos históricos
 
@@ -504,6 +579,9 @@ Esto reduce duplicación entre código y admin, pero conserva control sobre prec
 - Separar `capability` de `permission`: una empresa puede tener contratada una feature, pero un operador puede no tener permiso para administrarla.
 - Empezar con manifiestos tipados y sincronización automática al deploy.
 - Agregar caché breve e invalidación por tenant cuando el volumen lo justifique.
+- Implementar en la POC dos layouts separados: `PlatformBackoffice` y `TenantBackoffice`.
+- Usar únicamente `Owner` y `Readonly` para el alcance platform en la primera versión.
+- Tratar mantenimiento global como estado distinto de la selección del tenant.
 
 ## 15. Pendientes antes de producción
 
@@ -515,4 +593,3 @@ Esto reduce duplicación entre código y admin, pero conserva control sobre prec
 6. Elegir mecanismo de upload y límites de almacenamiento.
 7. Acordar formato de errores y observabilidad de denegaciones.
 8. Definir migraciones para módulos retirados.
-

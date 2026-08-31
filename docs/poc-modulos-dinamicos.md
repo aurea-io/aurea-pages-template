@@ -2,6 +2,8 @@
 
 Esta POC valida la experiencia de seleccionar módulos y funciones para una empresa, manteniendo la misma jerarquía en catálogo, API y UI.
 
+También fija el límite entre los dos productos administrativos de Aurea: el backoffice AUREA, orientado a la operación de la plataforma, y el backoffice del cliente, orientado a la operación de cada negocio.
+
 ## Objetivo
 
 Demostrar tres escenarios:
@@ -20,6 +22,38 @@ flowchart LR
   D --> E[GET /me/capabilities]
   E --> F[React renderiza Reserva]
   F --> G[Backend vuelve a autorizar acción]
+```
+
+## Alcance administrativo
+
+### Backoffice AUREA
+
+El owner puede:
+
+- crear y editar planes/membresías;
+- definir precio, moneda, intervalo, prueba y grace period;
+- asignar módulos y funciones a cada plan;
+- gestionar tenants y su estado;
+- hacer ABM del catálogo de módulos y asignar categorías;
+- activar o desactivar mantenimiento global;
+- consultar auditoría.
+
+El usuario `Readonly` puede consultar esas pantallas, pero cualquier mutación debe devolver `403 INSUFFICIENT_PERMISSION`.
+
+### Backoffice del cliente
+
+El cliente administra su negocio completo dentro del tenant elegido. Solo ve páginas, módulos y funciones que resultan habilitados por plan, configuración de tenant, estado global y rol. Las páginas finales se especializan por rubro, por ejemplo reservas para servicios, menú/pedidos para restaurante e inventario para stock.
+
+```mermaid
+flowchart TD
+  PLATFORM[Backoffice AUREA] --> PLAN[Plan + precio]
+  PLATFORM --> TENANT[Tenant]
+  PLATFORM --> CATALOG[Módulo + categoría + mantenimiento]
+  PLAN --> EFFECTIVE[Capabilities efectivas]
+  TENANT --> EFFECTIVE
+  CATALOG --> EFFECTIVE
+  EFFECTIVE --> CLIENT[Backoffice cliente]
+  EFFECTIVE --> PUBLIC[Página final pública]
 ```
 
 ## Mockup visual
@@ -79,6 +113,14 @@ El mockup es conceptual: sirve para conversar sobre jerarquía, estados, plan y 
 - Validación CI de keys, dependencias y rutas.
 - Sincronización idempotente en deploy.
 
+### Fase 5 — separación de backoffices
+
+- Crear layouts y rutas de platform y tenant.
+- Agregar guard de scope: `platform` versus `tenant`.
+- Seed de roles `owner` y `readonly` para AUREA.
+- Agregar mantenimiento global y pantalla de estado.
+- Validar que un usuario de cliente no pueda consultar planes, precios ni otros tenants.
+
 ## Qué no debe resolver esta POC
 
 - Billing real o integración con un proveedor de suscripciones.
@@ -86,4 +128,3 @@ El mockup es conceptual: sirve para conversar sobre jerarquía, estados, plan y 
 - Permisos por campo.
 - Reglas de autorización offline.
 - Borrado físico de features o datos históricos.
-
