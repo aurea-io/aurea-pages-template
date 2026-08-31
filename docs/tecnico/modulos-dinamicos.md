@@ -551,6 +551,183 @@ El hook solo controla UX y navegación. Ante un `403 CAPABILITY_DISABLED`, la ap
 
 La respuesta de capabilities no debe persistirse indefinidamente en `localStorage`: usar memoria, React Query o una caché con TTL corto y limpiar al cambiar de tenant.
 
+## 9.1 Theming multi-tenant sin CSS almacenado como archivo
+
+La personalización visual debe vivir en MongoDB como **tokens estructurados**, no como un bloque de CSS libre. Un servicio backend se encarga de transformar esos tokens en CSS y servirlo como respuesta HTTP.
+
+```text
+GET /themes/{tenantKey}.css?v=3
+        ↓
+Theme Service
+        ↓ hit                         ↓ miss
+Cache memoria / Redis              MongoDB
+        ↓                             ↓
+     CSS generado ←────── Generador seguro de CSS
+```
+
+Esto evita duplicar código por cliente y también evita administrar archivos CSS individuales. El servidor solo consulta MongoDB y genera el CSS cuando la versión solicitada todavía no está en caché.
+
+### Endpoint de tema
+
+```http
+GET /api/v1/themes/:tenantKey.css?v=3
+```
+
+Respuesta:
+
+```http
+Content-Type: text/css; charset=utf-8
+Cache-Control: public, max-age=300, stale-while-revalidate=3600
+ETag: "acme-salon-theme-v3"
+```
+
+El frontend lo carga como una hoja de estilos normal:
+
+```tsx
+<link
+  rel="stylesheet"
+  href={`${apiBaseUrl}/api/v1/themes/${tenant.key}.css?v=${theme.version}`}
+/>
+```
+
+Si el navegador ya tiene esa versión, envía `If-None-Match` y el servicio responde `304 Not Modified`, sin devolver nuevamente el CSS.
+
+### Documento de MongoDB
+
+```js
+{
+  tenantId: ObjectId('...'),
+  version: 3,
+  status: 'published',
+  tokens: {
+    colors: {
+      primary: '#B94E32',
+      primaryContrast: '#FFFFFF',
+      background: '#FAF8F4',
+      surface: '#FFFFFF',
+      text: '#262626',
+      mutedText: '#6B6B6B',
+      border: '#E4DED7'
+    },
+    typography: {
+      headingFont: 'DM Sans',
+      bodyFont: 'DM Sans'
+    },
+    shape: {
+      radius: 'medium',
+      buttonStyle: 'rounded'
+    },
+    layout: {
+      density: 'comfortable',
+      maxContentWidth: '1180px'
+    }
+  },
+  updatedBy: ObjectId('...'),
+  createdAt: ISODate('2026-08-31T12:00:00Z'),
+  updatedAt: ISODate('2026-08-31T12:00:00Z')
+}
+```
+
+El CSS base, el responsive y la estructura de componentes siguen siendo código compartido. MongoDB solo define valores y variantes soportadas:
+
+```css
+:root {
+  --color-primary: #b94e32;
+  --color-background: #faf8f4;
+  --color-text: #262626;
+  --radius-card: 16px;
+}
+```
+
+### Caché y resistencia al tráfico
+
+El Theme Service nunca debe hacer una consulta a MongoDB por cada visita:
+
+1. **Browser cache:** conserva el CSS por `max-age`.
+2. **ETag:** evita transferir contenido sin cambios.
+3. **Memoria local:** cada instancia conserva el CSS generado.
+4. **Redis opcional:** comparte la caché entre instancias.
+5. **MongoDB:** se usa solo ante un miss o cuando se publica una nueva versión.
+
+Clave sugerida:
+
+```text
+theme:{tenantId}:v{version}
+```
+
+Para varias instancias, Redis evita que cada instancia regenere el mismo tema. Si el tráfico público crece mucho, un CDN puede cachear la respuesta HTTP sin convertir el tema en un archivo administrado manualmente; el origen sigue siendo el Theme Service.
+
+### Publicación e invalidación
+
+Cada cambio crea una nueva versión:
+
+```text
+v1 → v2 → v3 → v4
+```
+
+La página solicita la versión publicada actual. Las versiones anteriores pueden permanecer cacheadas hasta expirar; no hace falta invalidar globalmente.
+
+```mermaid
+sequenceDiagram
+  actor Admin as Admin del tenant
+  participant API as API de configuración
+  participant DB as MongoDB
+  participant Cache as Memoria / Redis
+  participant Theme as Theme Service
+
+  Admin->>API: Guarda tokens visuales
+  API->>DB: Publica versión 4
+  API->>Cache: Invalida claves del tenant
+  API->>Theme: Notifica cambio (opcional)
+  Theme-->>Cache: Elimina versión activa anterior
+  Theme-->>Admin: Configuración publicada
+  Note over Theme,DB: Próxima petición genera v4 y la cachea
+```
+
+### Organización del servicio
+
+```text
+apps/api/
+└── modules/
+    └── themes/
+        ├── themes.controller.ts       # GET /themes/:tenantKey.css
+        ├── themes.service.ts          # resolver tenant y versión publicada
+        ├── theme-cache.ts             # memoria + Redis
+        ├── css-generator.ts            # tokens → CSS variables
+        ├── theme-validator.ts         # whitelist y contraste
+        └── themes.repository.ts       # acceso tenant-scoped a MongoDB
+```
+
+Si el volumen lo justifica, el módulo puede extraerse a `apps/theme-service/` y escalar independientemente de reservas, pagos y operaciones administrativas.
+
+### Seguridad del generador
+
+No se debe aceptar `customCss` libre en MongoDB. El generador solo admite propiedades conocidas y valores validados:
+
+- colores con formato válido y contraste mínimo;
+- fuentes desde una whitelist;
+- radios, tamaños y densidades desde enums;
+- URLs de imágenes provenientes de storage permitido;
+- sin `@import`, `url()` arbitrarios, scripts ni expresiones CSS;
+- tenant activo y slug válido.
+
+El admin del cliente solo puede modificar el documento de su tenant. `Owner` puede administrar defaults y políticas globales; `Readonly` solo puede consultar.
+
+### Decisión
+
+La estrategia adoptada para el POC es:
+
+```text
+Tokens en MongoDB
++ Theme Service que genera CSS bajo demanda
++ Caché en memoria y Redis cuando haya múltiples instancias
++ ETag y versionado en la URL
++ CSS base compartido en código
++ Assets servidos por storage/CDN
+```
+
+El objetivo es que el tráfico de visitas públicas no se traduzca en consultas constantes a MongoDB ni en regeneraciones repetidas de CSS.
+
 ## 10. Pantalla del backoffice
 
 La pantalla recomendada es un árbol navegable:

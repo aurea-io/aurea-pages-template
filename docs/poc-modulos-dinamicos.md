@@ -72,6 +72,10 @@ Los mockups son conceptuales: sirven para conversar sobre jerarquía, estados, p
 - Cambiar `tenantId` invalida la configuración anterior.
 - Una llamada directa al endpoint sin capability devuelve `403`.
 - La documentación de dominio mantiene las keys estables.
+- La página pública carga el CSS desde `Theme Service`, no desde un archivo específico del tenant.
+- Repetir la consulta de la misma versión responde desde caché o con `304`.
+- Cambiar el branding publica una nueva versión sin invalidar todos los tenants.
+- MongoDB no se consulta en cada visita cuando existe una versión cacheada.
 
 ## Datos mínimos de demo
 
@@ -122,6 +126,15 @@ Los mockups son conceptuales: sirven para conversar sobre jerarquía, estados, p
 - Seed de roles `owner` y `readonly` para AUREA.
 - Agregar mantenimiento global y pantalla de estado.
 - Validar que un usuario de cliente no pueda consultar planes, precios ni otros tenants.
+
+### Fase 6 — Theme Service
+
+- Crear `themes.controller`, `themes.service`, `theme-cache` y `css-generator`.
+- Guardar tokens versionados en MongoDB.
+- Servir `/api/v1/themes/:tenantKey.css?v=:version` con `ETag`.
+- Implementar caché local para la POC y dejar Redis como adaptador de producción.
+- Validar tokens y rechazar CSS libre.
+- Probar que 100 requests simultáneos para el mismo tenant no produzcan 100 consultas a MongoDB.
 
 ## Qué no debe resolver esta POC
 
