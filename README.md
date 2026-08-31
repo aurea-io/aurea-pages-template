@@ -1,110 +1,30 @@
-# Aurea Pages Template
+# Aurea Pages — POC v4
 
-Template de plataforma modular para pequeños negocios, orientado a crear productos digitales configurables a partir de un núcleo común.
+Esta rama contiene exclusivamente la propuesta actual de módulos dinámicos por empresa.
 
-> **Estado actual:** POC v1 ejecutable y documentación de producto. La implementación actual es una demo frontend local; backend, autenticación y persistencia productiva quedan para la siguiente etapa.
+## Documentación
 
-## Qué problema resuelve
+- [Especificación técnica](docs/tecnico/modulos-dinamicos.md)
+- [POC y criterios de aceptación](docs/poc-modulos-dinamicos.md)
+- [Mockup del backoffice](docs/assets/modulos-dinamicos-backoffice.png)
 
-La plataforma busca que un negocio pueda publicar sus servicios o productos, recibir reservas o pedidos y administrar su operación desde una aplicación web instalable como PWA. La propuesta combina una página pública accesible por enlace, QR o NFC, un panel privado, módulos activables, aislamiento de datos por negocio e integraciones desacopladas.
+## Idea central
 
-El primer producto recomendado es un sistema de turnos para profesionales de belleza y servicios personalizados. Luego puede extenderse a menús digitales, pedidos, mesas, stock, recetas, fidelización y gestión de inventario.
+```text
+Sección → Página → Función
+Servicios → Reservas → Subir foto a la reserva
+```
 
-## Índice de documentación
+La configuración se evalúa por tenant, suscripción/plan, rol y overrides de owner. El frontend recibe capabilities efectivas para renderizar la experiencia, pero el backend vuelve a autorizar cada operación sensible.
 
-### Ejemplos listos para presentar
+## Alcance de esta rama
 
-- [Aurea Turnos](examples/turnos/README.md)
-- [Aurea Restaurante](examples/restaurante/README.md)
-- [Aurea Stock](examples/stock/README.md)
-- [Índice de ejemplos comerciales](examples/README.md)
+- Modelo MongoDB.
+- Catálogo global de módulos y funciones.
+- Configuración por empresa.
+- Evaluación de permisos y dependencias.
+- Contratos de API.
+- Integración conceptual con React.
+- Diagramas Mermaid.
+- Mockup visual del backoffice.
 
-### Producto y alcance
-
-- [Visión y alcance](docs/producto/vision-y-alcance.md)
-- [Investigación y referencia](docs/producto/investigacion.md)
-- [Roadmap](docs/producto/roadmap.md)
-
-### Diseño técnico
-
-- [Arquitectura](docs/tecnico/arquitectura.md)
-- [Stack tecnológico](docs/tecnico/stack.md)
-- [Modelo de dominio](docs/tecnico/modelo-de-dominio.md)
-- [Seguridad y privacidad](docs/tecnico/seguridad-y-privacidad.md)
-
-### Módulos funcionales
-
-- [Catálogo y turnos](docs/modulos/turnos.md)
-- [Clientes y fidelización](docs/modulos/clientes.md)
-- [Pagos](docs/modulos/pagos.md)
-- [Menú, pedidos y mesas](docs/modulos/pedidos-y-mesas.md)
-- [Stock y costos](docs/modulos/stock-y-costos.md)
-
-### Uso y operación
-
-- [Guía de uso](docs/uso/guia-de-uso.md)
-- [Configuración](docs/uso/configuracion.md)
-- [Desarrollo local](docs/operacion/desarrollo-local.md)
-- [Pruebas](docs/operacion/pruebas.md)
-- [Despliegue y operación](docs/operacion/despliegue.md)
-- [Decisiones pendientes](docs/decisiones-pendientes.md)
-
-### Entregable ejecutable
-
-- [POC v1 — gestor y página pública](docs/poc-v1.md)
-- [Guía de ejecución de la POC](apps/web/README.md)
-
-También está disponible el [índice de documentación](docs/README.md).
-
-## Stack objetivo
-
-| Área | Tecnología objetivo | Estado |
-| --- | --- | --- |
-| Backend | NestJS + Fastify | Definido en la propuesta inicial |
-| Frontend | React + Vite | Definido en la propuesta inicial |
-| Aplicación cliente | PWA | Objetivo del producto |
-| Persistencia | PostgreSQL | Recomendado para el POC |
-| API | HTTP REST versionada | Propuesta |
-| Pagos | Adaptador para Mercado Pago | Requerido para la primera versión comercial |
-| Calidad | Unitarias, integración y E2E | Requerido |
-| Servidor de la POC | Node.js 22, HTTP nativo | Implementado |
-| Contenedores | Docker Compose | Implementado |
-| Observabilidad | Logs JSON + Prometheus + Grafana | Implementado |
-| Publicación | GitHub Actions + GHCR | Configurado |
-
-## Inicio rápido de documentación
-
-Para ejecutar la POC, consultar [Desarrollo local](docs/operacion/desarrollo-local.md). Para entender la decisión de producto, leer en este orden:
-
-1. [Visión y alcance](docs/producto/vision-y-alcance.md)
-2. [Investigación y referencia](docs/producto/investigacion.md)
-3. [Arquitectura](docs/tecnico/arquitectura.md)
-4. [Catálogo y turnos](docs/modulos/turnos.md)
-5. [Pruebas](docs/operacion/pruebas.md)
-
-## Operación local
-
-La POC se puede servir con `npm start` en `http://localhost:4173` o con
-`docker compose up -d`. Compose incluye Prometheus (`localhost:9090`) y Grafana
-(`localhost:3000`) con un dashboard operativo provisionado. La aplicación
-expone `/health` y `/metrics` y escribe logs JSON en stdout y `logs/aurea.log`.
-
-La publicación de imágenes y el aviso opcional por Telegram están definidos en
-GitHub Actions. El autodeployer Linux es opcional y está documentado en
-[Despliegue y operación](docs/operacion/despliegue.md).
-
-Los commits deben seguir Conventional Commits (`feat:`, `fix:`, `docs:`,
-`chore:`, etc.); el autotagger usa esa convención para calcular la versión.
-
-## Principios del proyecto
-
-1. Validar un producto pequeño antes de construir una suite completa.
-2. Mantener los módulos separados por dominio y con dependencias explícitas.
-3. Aplicar el aislamiento por tenant en backend, base de datos y pruebas.
-4. No acoplar el dominio a un proveedor externo de pagos o notificaciones.
-5. Priorizar una experiencia móvil simple, rápida y comprensible.
-6. Documentar decisiones y actualizar esta guía cuando cambie el diseño.
-
-## Licencia y estado legal
-
-El repositorio todavía no declara una licencia. Antes de distribuir el template o vender instalaciones deben definirse la licencia, el tratamiento de datos personales, los términos del servicio y las responsabilidades sobre integraciones de terceros.
