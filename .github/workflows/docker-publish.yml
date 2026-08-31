@@ -89,28 +89,48 @@ jobs:
     steps:
       - name: Notify Discord webhooks
         env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           RELEASE_TAG: ${{ github.event.release.tag_name || format('v{0}', inputs.version) }}
         run: |
           set -euo pipefail
-          if [[ -z "${DISCORD_WEBHOOK_URL}" ]]; then
+          message=$(printf 'Aurea publicada 🚀\nTag: %s\nCommit: %.7s' "${RELEASE_TAG}" "${GITHUB_SHA}")
+          payload="$(printf '%s' "${message}" | python3 -c 'import json,sys; print(json.dumps({"content": sys.stdin.read()}))')"
+          sent=0
+          if [[ -n "${DISCORD_BOT_TOKEN}" ]]; then
+            if [[ -z "${DISCORD_CHANNEL_ID}" ]]; then
+              echo "DISCORD_CHANNEL_ID es obligatorio cuando se usa DISCORD_BOT_TOKEN." >&2
+              exit 1
+            fi
+            IFS='|' read -ra channel_ids <<< "${DISCORD_CHANNEL_ID}"
+            for channel_id in "${channel_ids[@]}"; do
+              channel_id="$(echo "${channel_id}" | xargs)"
+              [[ -z "${channel_id}" ]] && continue
+              curl --fail --silent --show-error --request POST \
+                --header "Authorization: Bot ${DISCORD_BOT_TOKEN}" \
+                --header 'content-type: application/json' \
+                --data "${payload}" \
+                "https://discord.com/api/v10/channels/${channel_id}/messages"
+              sent=$((sent + 1))
+            done
+          elif [[ -n "${DISCORD_WEBHOOK_URL}" ]]; then
+            IFS='|' read -ra webhooks <<< "${DISCORD_WEBHOOK_URL}"
+            for webhook in "${webhooks[@]}"; do
+              webhook="$(echo "${webhook}" | xargs)"
+              [[ -z "${webhook}" ]] && continue
+              curl --fail --silent --show-error --request POST \
+                --header 'content-type: application/json' \
+                --data "${payload}" \
+                "${webhook}"
+              sent=$((sent + 1))
+            done
+          else
             echo "Discord no configurado; se omite el aviso."
             exit 0
           fi
-          message=$(printf 'Aurea publicada 🚀\nTag: %s\nCommit: %.7s' "${RELEASE_TAG}" "${GITHUB_SHA}")
-          sent=0
-          IFS='|' read -ra webhooks <<< "${DISCORD_WEBHOOK_URL}"
-          for webhook in "${webhooks[@]}"; do
-            webhook="$(echo "${webhook}" | xargs)"
-            [[ -z "${webhook}" ]] && continue
-            curl --fail --silent --show-error --request POST \
-              --header 'content-type: application/json' \
-              --data "$(printf '%s' "${message}" | python3 -c 'import json,sys; print(json.dumps({"content": sys.stdin.read()}))')" \
-              "${webhook}"
-            sent=$((sent + 1))
-          done
           if [[ "${sent}" -eq 0 ]]; then
-            echo "DISCORD_WEBHOOK_URL no contiene ningún webhook válido." >&2
+            echo "La configuración de Discord no contiene destinos válidos." >&2
             exit 1
           fi
-          echo "Discord notificado en ${sent} webhook(s)."
+          echo "Discord notificado en ${sent} destino(s)."
