@@ -5,6 +5,7 @@ Esta rama contiene exclusivamente la propuesta actual de módulos dinámicos por
 ## Documentación
 
 - [Flujo completo con imágenes](docs/README-flujo.md)
+- [Backlog operativo y regla de evidencia](docs/BACKLOG.md)
 - [Especificación técnica](docs/tecnico/modulos-dinamicos.md)
 - [POC y criterios de aceptación](docs/poc-modulos-dinamicos.md)
 - [Decisiones y respuestas](docs/decisiones-modulos-dinamicos.md)
