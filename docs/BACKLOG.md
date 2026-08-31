@@ -50,6 +50,26 @@ flowchart LR
 4. Adjuntar evidencia real y resultados de aceptación.
 5. Cerrar únicamente después de revisar la evidencia y retirar el label de estado anterior.
 
+## Dependencias entre tareas
+
+Cada issue tiene una sección `Dependencias de ejecución` con sus bloqueantes concretos (`#N`). La regla de avance es:
+
+```text
+Contrato y manifiestos
+        ↓
+Modelo y catálogo MongoDB
+        ↓
+Evaluator, roles y autorización
+        ↓
+Backoffices + React público + Theme Service
+        ↓
+Seguridad, integración, performance y operación
+        ↓
+Demo desplegada y cierre
+```
+
+Una tarea no debe pasar a `Working` mientras una dependencia funcional siga abierta o sin evidencia aprobada. Las dependencias están duplicadas en el texto de las issues para conservar trazabilidad aunque cambie la vista del Project.
+
 ## Repositorios de implementación
 
 - [Backend](https://github.com/aurea-io/backoffice-be-aurea): API, MongoDB, guards, evaluator y Theme Service.
