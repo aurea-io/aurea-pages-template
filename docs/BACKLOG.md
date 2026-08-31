@@ -1,6 +1,6 @@
 # Backlog operativo — POC v4
 
-El backlog oficial vive en GitHub, dentro del milestone [POC v4 — Sistema de módulos dinámicos](https://github.com/aurea-io/aurea-pages-template/milestone/1).
+El backlog oficial vive en el [dashboard GitHub de POC v4](https://github.com/orgs/aurea-io/projects/1) y dentro del milestone [POC v4 — Sistema de módulos dinámicos](https://github.com/aurea-io/aurea-pages-template/milestone/1).
 
 ## Regla de estados
 
