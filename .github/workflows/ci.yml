@@ -7,10 +7,7 @@ jobs:
   ci:
     uses: aurea-io/aurea-ci/.github/workflows/ci.yml@v1
     with:
-      check-command: npm run check
-      test-command: npm test
-      docker-build: true
-      release-script-test: true
+      project-type: node-pages
   security:
     uses: aurea-io/aurea-ci/.github/workflows/security.yml@v1
   commit-policy:
