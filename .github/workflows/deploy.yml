@@ -48,7 +48,7 @@ jobs:
           test -n "$VERCEL_PROJECT_ID"
           test -n "$VERCEL_TOKEN"
           npx --yes vercel@latest deploy apps/web --prod --yes \
-            --name "$VERCEL_PROJECT_ID" \
+            --project "$VERCEL_PROJECT_ID" \
             --scope aurea-pages-template \
             --token "$VERCEL_TOKEN"
 
