@@ -7,6 +7,7 @@ Esta rama contiene exclusivamente la propuesta actual de módulos dinámicos por
 - [Especificación técnica](docs/tecnico/modulos-dinamicos.md)
 - [POC y criterios de aceptación](docs/poc-modulos-dinamicos.md)
 - [Mockup del backoffice](docs/assets/modulos-dinamicos-backoffice.png)
+- [Mockup de Reservas y preview mobile](docs/assets/modulos-dinamicos-reservas.png)
 
 ## Idea central
 
@@ -27,4 +28,3 @@ La configuración se evalúa por tenant, suscripción/plan, rol y overrides de o
 - Integración conceptual con React.
 - Diagramas Mermaid.
 - Mockup visual del backoffice.
-

@@ -60,7 +60,9 @@ flowchart TD
 
 ![Mockup de configuración de módulos dinámicos](assets/modulos-dinamicos-backoffice.png)
 
-El mockup es conceptual: sirve para conversar sobre jerarquía, estados, plan y preview. Los textos y estados reales deben venir de la API.
+![Mockup de configuración de Reservas y preview mobile](assets/modulos-dinamicos-reservas.png)
+
+Los mockups son conceptuales: sirven para conversar sobre jerarquía, estados, plan, roles, alcance del negocio y preview público desktop/mobile. Los textos y estados reales deben venir de la API.
 
 ## Criterio de aceptación
 
