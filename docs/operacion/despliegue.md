@@ -13,7 +13,7 @@ Se ejecuta al actualizar `main` o manualmente desde GitHub Actions:
 2. Publica `apps/web` en Vercel mediante la CLI y secretos de GitHub.
 3. Dispara el deploy del backend en Render mediante un deploy hook guardado como secreto.
 
-Los secretos requeridos son `VERCEL_PROJECT_ID`, `VERCEL_TOKEN` y
+Los secretos requeridos son `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `VERCEL_TOKEN` y
 `RENDER_DEPLOY_HOOK_URL`. Nunca deben escribirse en el repositorio, logs, archivos
 `.env` versionados ni parámetros visibles del workflow.
 
