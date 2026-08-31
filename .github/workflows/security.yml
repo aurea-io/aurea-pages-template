@@ -5,3 +5,5 @@ on:
 jobs:
   security:
     uses: aurea-io/aurea-ci/.github/workflows/security.yml@v1
+    with:
+      project-type: node-pages
