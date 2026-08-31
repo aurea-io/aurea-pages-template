@@ -1,4 +1,4 @@
-# Aurea Pages — POC v4
+# Aurea Pages — Módulos dinámicos
 
 Esta rama contiene exclusivamente la propuesta actual de módulos dinámicos por empresa.
 

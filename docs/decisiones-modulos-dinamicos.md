@@ -1,6 +1,6 @@
 # Decisiones y respuestas — módulos dinámicos
 
-**Estado:** decisiones de producto y arquitectura para `poc-v4`  
+**Estado:** decisiones de producto y arquitectura para módulos dinámicos  
 **Fuente:** respuestas del equipo a la revisión de seguridad, performance, personalización, mantenibilidad y escalamiento.
 
 ## Decisiones confirmadas
@@ -133,4 +133,3 @@ Un CDN no implica administrar archivos manualmente. Puede cachear la respuesta d
 8. ¿MFA será obligatorio para `platform_owner` desde el primer release?
 9. ¿Qué puede consultar un usuario de plataforma al inspeccionar un tenant?
 10. ¿La POC debe demostrar créditos y addons o alcanza con documentarlos?
-

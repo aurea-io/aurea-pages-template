@@ -1,6 +1,6 @@
-# Backlog operativo — POC v4
+# Backlog operativo — Módulos dinámicos
 
-El backlog oficial vive en el [dashboard GitHub de POC v4](https://github.com/orgs/aurea-io/projects/1) y dentro del milestone [POC v4 — Sistema de módulos dinámicos](https://github.com/aurea-io/aurea-pages-template/milestone/1).
+El backlog oficial vive en el [dashboard GitHub de módulos dinámicos](https://github.com/orgs/aurea-io/projects/1) y dentro del milestone [Sistema de módulos dinámicos](https://github.com/aurea-io/aurea-pages-template/milestone/1).
 
 ## Regla de estados
 
@@ -56,4 +56,4 @@ flowchart LR
 - [Frontend](https://github.com/aurea-io/backoffice-fe-aurea): backoffices, React, capabilities y página pública.
 - [Template POC](https://github.com/aurea-io/aurea-pages-template): documentación, contratos, backlog y referencia visual.
 
-Las 33 issues abiertas del milestone son la descomposición ejecutable de la documentación vigente de `poc-v4`. Las issues 34–41 fueron cerradas como duplicadas durante la carga automática.
+Las 33 issues abiertas del milestone son la descomposición ejecutable de la documentación vigente. Las issues 34–41 fueron cerradas como duplicadas durante la carga automática.
