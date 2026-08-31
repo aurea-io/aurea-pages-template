@@ -91,39 +91,130 @@ El cliente puede modificar el JavaScript, llamar endpoints manualmente o enviar 
 
 ## 4. Organización en el repositorio
 
-La jerarquía de producto se refleja en el código sin crear un paquete por cada botón:
+La regla más importante es separar dos cosas que suelen mezclarse:
+
+1. **El producto ejecutable:** aplicaciones API y web.
+2. **El conocimiento compartido del dominio:** paquetes reutilizables que definen reglas, contratos y capabilities.
+
+```mermaid
+flowchart TB
+  subgraph APPS[apps/ — productos ejecutables]
+    API[api — NestJS: endpoints, guards y casos de uso]
+    WEB[web — React: rutas, pantallas y componentes]
+  end
+  subgraph PACKAGES[packages/ — piezas compartidas]
+    CORE[core — identidad, tenants y acceso]
+    DOMAINS[dominios — bookings, customers, payments]
+    UI[ui — componentes visuales compartidos]
+  end
+  CATALOG[Manifiestos de capabilities] --> CORE
+  CORE --> API
+  CORE --> WEB
+  DOMAINS --> API
+  DOMAINS --> WEB
+  UI --> WEB
+```
+
+### 4.1 Mapa de carpetas
 
 ```text
 packages/
-  core/
-    access/
-      capability-catalog.ts
-      capability-evaluator.ts
-      require-capability.ts
-    tenants/
-    identity/
-  bookings/
-    services/
-  customers/
-  payments/
+├── core/                         # reglas transversales, no una pantalla
+│   ├── access/                   # capabilities, permisos y evaluación efectiva
+│   │   ├── capability-catalog.ts
+│   │   ├── capability-evaluator.ts
+│   │   └── require-capability.ts
+│   ├── tenants/                  # contexto y aislamiento por empresa
+│   └── identity/                 # usuario, sesión y membresía
+│
+├── bookings/                     # dominio de reservas
+│   ├── domain/                   # entidades y reglas puras
+│   ├── application/              # casos de uso
+│   ├── contracts/                # DTOs/eventos compartidos
+│   └── features.ts               # manifiesto del módulo
+│
+├── customers/                    # dominio de clientes
+├── payments/                     # dominio y adaptadores de pagos
+├── orders/                       # pedidos y productos
+└── ui/                           # botones, toggles, árbol y layouts comunes
+
 apps/
-  api/
-    modules/
-      services/
-        bookings/
-          bookings.controller.ts
-          bookings.service.ts
-          features.ts
-  web/
-    src/
-      sections/
-        services/
-          pages/
-            bookings/
-              BookingsPage.tsx
-              features.ts
-              components/
+├── api/                          # aplicación NestJS/Fastify
+│   └── modules/
+│       └── services/
+│           └── bookings/
+│               ├── bookings.controller.ts
+│               ├── bookings.service.ts
+│               └── bookings.guard.ts
+└── web/                          # aplicación React
+    └── src/
+        ├── platform/             # Backoffice AUREA: planes, tenants y catálogo
+        ├── tenant/               # Backoffice cliente: negocio de un tenant
+        ├── public/               # página final pública del tenant
+        └── sections/
+            └── services/
+                └── pages/
+                    └── bookings/
+                        ├── BookingsPage.tsx
+                        ├── features.ts
+                        └── components/
 ```
+
+### 4.2 Qué vive en cada lugar
+
+| Carpeta | Responsabilidad | Puede decidir activación comercial | Debe conocer MongoDB |
+| --- | --- | ---: | ---: |
+| `packages/core/access` | Resolver si una capability está habilitada y proteger operaciones | No | No directamente |
+| `packages/core/tenants` | Resolver tenant actual y evitar cruces de datos | No | A través de repositorios |
+| `packages/<dominio>` | Reglas propias de reservas, clientes, pagos, etc. | No | No en `domain`; sí en infraestructura |
+| `apps/api` | Exponer endpoints, autenticar, autorizar y conectar repositorios | No | Sí, mediante infraestructura |
+| `apps/web/src/platform` | Administrar planes, módulos, tenants y mantenimiento | Sí, llamando API | No |
+| `apps/web/src/tenant` | Operar el negocio del cliente dentro de un tenant | Solo selección permitida | No |
+| `apps/web/src/public` | Renderizar la página final para clientes finales | No | No |
+| `apps/web/src/sections` | Componer páginas y bloques por rubro | No; consume capabilities | No |
+| `packages/ui` | Componentes visuales sin reglas de negocio | No | No |
+
+Una forma sencilla de recordarlo:
+
+```text
+El frontend pregunta:  “¿Lo muestro?”
+El backend decide:     “¿Se puede hacer?”
+El catálogo describe:  “¿Qué existe?”
+El plan concede:       “¿Qué puede contratarse?”
+El tenant elige:       “¿Qué está activo aquí?”
+El rol limita:         “¿Quién puede operarlo?”
+```
+
+### 4.3 La misma feature en todo el sistema
+
+Tomemos `services.bookings.photo_upload`:
+
+```text
+1. packages/bookings/features.ts
+   Declara que la feature existe, sus dependencias y permisos.
+
+2. module_catalog
+   Guarda nombre, categoría, estado, plan permitido y mantenimiento.
+
+3. apps/api/modules/services/bookings
+   Protege POST /bookings/:id/photo con requireCapability(...).
+
+4. apps/web/src/sections/services/pages/bookings
+   Usa useCapability(...) para mostrar el control de subida.
+
+5. apps/web/src/platform
+   Permite al owner administrar la definición global.
+
+6. apps/web/src/tenant
+   Permite al admin del cliente activarla si el plan lo permite.
+
+7. apps/web/src/public
+   Muestra el bloque de foto solo si la API pública devuelve true.
+```
+
+No se crea una carpeta global llamada `features/` llena de flags sueltos. Cada feature vive junto al dominio que la implementa; el acceso transversal se centraliza en `core/access`.
+
+### 4.4 Manifiesto del módulo
 
 Cada módulo publica un manifiesto con la misma key que consume el backoffice:
 
