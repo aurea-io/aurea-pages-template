@@ -76,6 +76,10 @@ Los mockups son conceptuales: sirven para conversar sobre jerarquía, estados, p
 - Repetir la consulta de la misma versión responde desde caché o con `304`.
 - Cambiar el branding publica una nueva versión sin invalidar todos los tenants.
 - MongoDB no se consulta en cada visita cuando existe una versión cacheada.
+- Los usuarios de plataforma usan un scope separado de los usuarios del tenant.
+- Un módulo puede consumir créditos del plan y activar un addon para ampliar disponibilidad.
+- Un cambio visual se guarda como borrador, permite preview y conserva las últimas cuatro versiones publicadas.
+- La POC documenta la política de 14 días para pagos vencidos.
 
 ## Datos mínimos de demo
 
@@ -135,6 +139,14 @@ Los mockups son conceptuales: sirven para conversar sobre jerarquía, estados, p
 - Implementar caché local para la POC y dejar Redis como adaptador de producción.
 - Validar tokens y rechazar CSS libre.
 - Probar que 100 requests simultáneos para el mismo tenant no produzcan 100 consultas a MongoDB.
+
+### Fase 7 — decisiones comerciales y de operación
+
+- Seed de `platform_memberships`, `plan_prices`, `tenant_addons` y créditos mensuales.
+- Implementar `accessPolicy` para pago vencido: backoffice bloqueado y página pública activa durante 14 días.
+- Implementar borrador, preview y conservación de cuatro versiones de branding.
+- Agregar roles múltiples por empleado y permisos requeridos por módulo.
+- Documentar y probar retención/TTL por función.
 
 ## Qué no debe resolver esta POC
 

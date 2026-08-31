@@ -6,6 +6,7 @@ Esta rama contiene exclusivamente la propuesta actual de módulos dinámicos por
 
 - [Especificación técnica](docs/tecnico/modulos-dinamicos.md)
 - [POC y criterios de aceptación](docs/poc-modulos-dinamicos.md)
+- [Decisiones y respuestas](docs/decisiones-modulos-dinamicos.md)
 - [Mockup del backoffice](docs/assets/modulos-dinamicos-backoffice.png)
 - [Mockup de Reservas y preview mobile](docs/assets/modulos-dinamicos-reservas.png)
 

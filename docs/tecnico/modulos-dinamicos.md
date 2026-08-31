@@ -252,6 +252,45 @@ Se recomienda separar catálogo global de configuración por tenant. Así se evi
 }
 ```
 
+### 5.1.1 `users` y memberships
+
+Cada usuario pertenece a un único tenant. Los roles se mantienen en memberships para permitir varios roles por empleado y auditoría.
+
+```js
+// users
+{
+  _id: ObjectId('...'),
+  email: 'empleado@acme.com',
+  tenantId: ObjectId('...'),
+  status: 'active',
+  sessionVersion: 4,
+  createdAt: ISODate('2026-08-01T12:00:00Z')
+}
+
+// tenant_memberships
+{
+  _id: ObjectId('...'),
+  tenantId: ObjectId('...'),
+  userId: ObjectId('...'),
+  roleKeys: ['tenant_admin', 'bookings_manager'],
+  status: 'active',
+  createdAt: ISODate('2026-08-02T10:00:00Z'),
+  updatedAt: ISODate('2026-08-20T12:00:00Z')
+}
+```
+
+Para AUREA se utiliza una colección separada:
+
+```js
+// platform_memberships
+{
+  userId: ObjectId('...'),
+  roleKey: 'platform_owner', // platform_owner | platform_readonly
+  allowedCountries: ['AR'],
+  status: 'active'
+}
+```
+
 ### 5.2 `module_catalog`
 
 Catálogo global controlado por owners. No contiene datos propios de una empresa.
@@ -311,6 +350,8 @@ El estado `maintenance.enabled` es una pausa operativa global. Sirve para deshab
     { key: 'services.bookings.photo_upload', effect: 'allow' },
     { key: 'payments', effect: 'deny' }
   ],
+  credits: { monthly: 100, rollover: false },
+  includedModules: ['services.bookings', 'inventory'],
   limits: { bookingsPerMonth: 500, storageBytes: 1073741824 },
   version: 3,
   createdAt: ISODate('2026-08-01T12:00:00Z'),
@@ -321,6 +362,35 @@ El estado `maintenance.enabled` es una pausa operativa global. Sirve para deshab
 Planes, membresías y precios se administran desde el backoffice AUREA. El precio debe tener moneda e intervalo explícitos; los cambios no deben sobrescribir el precio histórico de facturas o suscripciones existentes. Para producción conviene guardar una versión o `priceId` inmutable.
 
 Para catálogos grandes, `capabilityRules` puede normalizarse en `plan_entitlements`; para el POC embebido facilita leer el plan completo. El plan no debe ser editable por un usuario del tenant.
+
+Los créditos habilitan la selección de módulos; no sustituyen los límites operativos del módulo. Reservas, stock, empleados y sucursales se contabilizan y controlan dentro de sus dominios.
+
+### 5.3.1 `plan_prices` y `tenant_addons`
+
+Los precios se versionan y no se sobrescriben:
+
+```js
+// plan_prices
+{
+  planKey: 'pro',
+  priceId: 'pro-ars-monthly-v3',
+  amount: 29900,
+  currency: 'ARS',
+  interval: 'month',
+  validFrom: ISODate('2026-08-01T00:00:00Z'),
+  validUntil: null
+}
+
+// tenant_addons
+{
+  tenantId: ObjectId('...'),
+  addonKey: 'credits_100',
+  credits: 100,
+  status: 'active',
+  renews: true,
+  validUntil: ISODate('2026-09-01T00:00:00Z')
+}
+```
 
 ### 5.4 `subscriptions`
 
@@ -335,6 +405,16 @@ Para catálogos grandes, `capabilityRules` puede normalizarse en `plan_entitleme
   provider: { name: 'internal', customerRef: 'cus_123' },
   createdAt: ISODate('2026-08-01T12:00:00Z'),
   updatedAt: ISODate('2026-08-20T12:00:00Z')
+}
+```
+
+La política de acceso se deriva de `status` y `gracePeriodEndsAt`:
+
+```js
+{
+  status: 'past_due',
+  gracePeriodEndsAt: ISODate('2026-09-15T00:00:00Z'),
+  accessPolicy: 'admin_blocked_public_active'
 }
 ```
 
@@ -377,6 +457,8 @@ Esta colección representa la elección de la empresa y los casos excepcionales 
   capabilityKey: 'services.bookings.photo_upload',
   effect: 'allow', // allow | deny
   source: 'tenant_setting', // plan | tenant_setting | owner_override | migration
+  creditCost: 0,
+  creditAllocationId: null,
   expiresAt: null,
   reason: 'Habilitado por el administrador de Acme',
   changedBy: ObjectId('...'),
@@ -413,6 +495,12 @@ db.memberships.createIndex({ tenantId: 1, userId: 1 }, { unique: true });
 db.tenant_entitlements.createIndex({ tenantId: 1, capabilityKey: 1 }, { unique: true });
 db.tenant_entitlements.createIndex({ tenantId: 1, expiresAt: 1 });
 db.subscriptions.createIndex({ tenantId: 1, status: 1 });
+db.users.createIndex({ tenantId: 1, email: 1 }, { unique: true });
+db.tenant_memberships.createIndex({ tenantId: 1, userId: 1 }, { unique: true });
+db.platform_memberships.createIndex({ userId: 1 }, { unique: true });
+db.plan_prices.createIndex({ planKey: 1, priceId: 1 }, { unique: true });
+db.tenant_branding.createIndex({ tenantId: 1, version: 1 }, { unique: true });
+db.tenant_branding.createIndex({ publicThemeId: 1 }, { unique: true });
 db.audit_logs.createIndex({ tenantId: 1, createdAt: -1 });
 ```
 
@@ -428,13 +516,14 @@ El repositorio debe recibir un `TenantContext` obligatorio para impedir consulta
 
 ### Precedencia
 
-1. tenant suspendido o suscripción no válida: todo lo comercial queda denegado;
-2. owner override explícito;
-3. selección/deny del tenant;
-4. regla del plan;
-5. estado del catálogo y dependencias;
-6. rol y permisos del usuario para operaciones privadas;
-7. default del manifiesto solo si no existe una regla comercial.
+1. tenant suspendido o suscripción fuera de política: aplicar `accessPolicy`;
+2. capability existente, publicada y fuera de mantenimiento;
+3. owner override explícito;
+4. regla del plan y créditos disponibles;
+5. selección/deny del tenant;
+6. estado de dependencias y padres;
+7. rol y permisos del usuario para operaciones privadas;
+8. límite operativo del módulo.
 
 La UI pública no debería depender del rol de backoffice. Para ella se calcula una vista pública de capabilities; para `/api/v1/admin/*` se agregan membership y permisos.
 
@@ -465,10 +554,11 @@ async function can(ctx: RequestContext, key: string, action?: string) {
   const catalog = await catalogRepo.get(key);
   if (!catalog || catalog.status !== 'active') return false;
   if (!ctx.tenant || ctx.tenant.status !== 'active') return false;
-  if (!subscriptionAllows(ctx.subscription, catalog)) return false;
+  if (!subscriptionPolicyAllows(ctx.subscription, catalog, ctx.operation)) return false;
 
   const rule = await entitlementResolver.resolve(ctx.tenant.id, key, catalog);
   if (rule.effect !== 'allow') return false;
+  if (!(await creditsAreAvailable(ctx.tenant.id, catalog))) return false;
   if (!(await parentsAreEnabled(ctx.tenant.id, catalog))) return false;
   if (action && !ctx.permissions.includes(action)) return false;
   return true;
@@ -570,7 +660,7 @@ Esto evita duplicar código por cliente y también evita administrar archivos CS
 ### Endpoint de tema
 
 ```http
-GET /api/v1/themes/:tenantKey.css?v=3
+GET /api/v1/style/:publicThemeId.css?v=3
 ```
 
 Respuesta:
@@ -586,7 +676,7 @@ El frontend lo carga como una hoja de estilos normal:
 ```tsx
 <link
   rel="stylesheet"
-  href={`${apiBaseUrl}/api/v1/themes/${tenant.key}.css?v=${theme.version}`}
+  href={`${apiBaseUrl}/api/v1/style/${theme.publicThemeId}.css?v=${theme.version}`}
 />
 ```
 
@@ -597,8 +687,9 @@ Si el navegador ya tiene esa versión, envía `If-None-Match` y el servicio resp
 ```js
 {
   tenantId: ObjectId('...'),
+  publicThemeId: '123123123',
   version: 3,
-  status: 'published',
+  status: 'published', // draft | published | archived
   tokens: {
     colors: {
       primary: '#B94E32',
@@ -690,7 +781,7 @@ sequenceDiagram
 apps/api/
 └── modules/
     └── themes/
-        ├── themes.controller.ts       # GET /themes/:tenantKey.css
+        ├── themes.controller.ts       # GET /style/:publicThemeId.css
         ├── themes.service.ts          # resolver tenant y versión publicada
         ├── theme-cache.ts             # memoria + Redis
         ├── css-generator.ts            # tokens → CSS variables
