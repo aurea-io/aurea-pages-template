@@ -6,11 +6,19 @@ Se recomienda separar desarrollo, staging y producción. Cada ambiente debe tene
 
 ## Pipeline
 
-1. Instalar Node.js 22 y validar con `npm install`, `npm run check` y `npm test`.
-2. Construir la imagen Docker como usuario no root.
-3. Publicar la imagen en GHCR al crear un release.
-4. Ejecutar el healthcheck y, opcionalmente, el autodeployer local.
-5. Avisar el resultado por Telegram si están configurados `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHAT_ID`.
+El workflow `.github/workflows/deploy.yml` es el único disparador de publicación.
+Se ejecuta al actualizar `main` o manualmente desde GitHub Actions:
+
+1. Instala Node.js 22 y valida con `npm ci`, `npm run check` y `npm test`.
+2. Publica `apps/web` en Vercel mediante la CLI y secretos de GitHub.
+3. Dispara el deploy del backend en Render mediante un deploy hook guardado como secreto.
+
+Los secretos requeridos son `VERCEL_PROJECT_ID`, `VERCEL_TOKEN` y
+`RENDER_DEPLOY_HOOK_URL`. Nunca deben escribirse en el repositorio, logs, archivos
+`.env` versionados ni parámetros visibles del workflow.
+
+El workflow de publicación de imágenes a GHCR continúa separado y solo se ejecuta
+para releases o mediante `workflow_dispatch`.
 
 `TELEGRAM_CHAT_ID` admite varios destinatarios separados por `|`, por ejemplo
 `-1001234567890|-1009876543210`. Se envía el mismo aviso a cada chat.
