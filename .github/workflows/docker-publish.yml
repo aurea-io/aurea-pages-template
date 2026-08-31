@@ -100,8 +100,8 @@ jobs:
           sent=0
           if [[ -n "${DISCORD_BOT_TOKEN}" ]]; then
             if [[ -z "${DISCORD_CHANNEL_ID}" ]]; then
-              echo "DISCORD_CHANNEL_ID es obligatorio cuando se usa DISCORD_BOT_TOKEN." >&2
-              exit 1
+              echo "DISCORD_CHANNEL_ID no configurado; se omite el aviso de Discord."
+              exit 0
             fi
             IFS='|' read -ra channel_ids <<< "${DISCORD_CHANNEL_ID}"
             for channel_id in "${channel_ids[@]}"; do
