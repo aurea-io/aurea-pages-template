@@ -52,7 +52,7 @@ flowchart LR
 
 ## Dependencias entre tareas
 
-Cada issue tiene una sección `Dependencias de ejecución` con sus bloqueantes concretos (`#N`). La regla de avance es:
+Cada issue tiene una sección `Dependencias de ejecución` con sus bloqueantes concretos (`#N`) y además tiene configurada la relación nativa de GitHub `blocked by / blocking`. La regla de avance es:
 
 ```text
 Contrato y manifiestos
