@@ -9,7 +9,7 @@ permissions:
   packages: write
 jobs:
   publish:
-    uses: aurea-io/aurea-ci/.github/workflows/docker-publish.yml@main
+    uses: aurea-io/aurea-ci/.github/workflows/docker-publish.yml@codex/central-ci-notifications
     with:
       image: ghcr.io/aurea-io/aurea-pages-template
       version: ${{ github.event.release.tag_name || inputs.version }}

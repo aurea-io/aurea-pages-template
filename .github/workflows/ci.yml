@@ -4,6 +4,6 @@ on:
   push: { branches: [main] }
 jobs:
   ci:
-    uses: aurea-io/aurea-ci/.github/workflows/ci.yml@main
+    uses: aurea-io/aurea-ci/.github/workflows/ci.yml@codex/central-ci-notifications
     with:
       project-type: node-pages
