@@ -8,10 +8,12 @@ Esta carpeta contiene la especificación funcional y técnica de Aurea Pages Tem
 | --- | --- |
 | [`producto/`](producto/) | Visión, alcance, investigación y roadmap |
 | [`tecnico/`](tecnico/) | Arquitectura, stack, dominio y seguridad |
+| [`tecnico/modulos-dinamicos.md`](tecnico/modulos-dinamicos.md) | Modelo de capacidades, MongoDB, permisos y renderizado dinámico |
 | [`modulos/`](modulos/) | Especificaciones funcionales por módulo |
 | [`uso/`](uso/) | Flujos de uso y configuración |
 | [`operacion/`](operacion/) | Desarrollo, pruebas y despliegue |
 | [`poc-v1.md`](poc-v1.md) | Alcance y validación del primer entregable ejecutable |
+| [`poc-modulos-dinamicos.md`](poc-modulos-dinamicos.md) | POC de configuración de módulos por empresa |
 | [`decisiones-pendientes.md`](decisiones-pendientes.md) | Decisiones necesarias antes de producción |
 
 ## Convenciones
@@ -29,5 +31,6 @@ Esta carpeta contiene la especificación funcional y técnica de Aurea Pages Tem
 3. [Arquitectura](tecnico/arquitectura.md)
 4. [Stack tecnológico](tecnico/stack.md)
 5. [Modelo de dominio](tecnico/modelo-de-dominio.md)
-6. Especificación del módulo que se vaya a implementar
-7. [Pruebas](operacion/pruebas.md) y [Despliegue](operacion/despliegue.md)
+6. [Módulos dinámicos y capacidades](tecnico/modulos-dinamicos.md)
+7. Especificación del módulo que se vaya a implementar
+8. [Pruebas](operacion/pruebas.md) y [Despliegue](operacion/despliegue.md)
