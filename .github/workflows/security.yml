@@ -4,6 +4,6 @@ on:
   push: { branches: [main] }
 jobs:
   security:
-    uses: aurea-io/aurea-ci/.github/workflows/security.yml@v1
+    uses: aurea-io/aurea-ci/.github/workflows/security.yml@main
     with:
       project-type: node-pages

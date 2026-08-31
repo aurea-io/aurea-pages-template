@@ -7,6 +7,6 @@ permissions:
   actions: write
 jobs:
   release:
-    uses: aurea-io/aurea-ci/.github/workflows/release.yml@v1
+    uses: aurea-io/aurea-ci/.github/workflows/release.yml@main
     with: { docker-workflow: docker-publish.yml }
     secrets: inherit
