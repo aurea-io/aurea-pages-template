@@ -77,6 +77,8 @@ jobs:
           VERIFY_RESULT: ${{ needs.verify.result }}
           FRONTEND_RESULT: ${{ needs.frontend.result }}
           BACKEND_RESULT: ${{ needs.backend.result }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message || 'workflow dispatch' }}
+          TAG_NAME: ${{ github.ref_type == 'tag' && github.ref_name || '—' }}
         run: |
           test -n "$DISCORD_BOT_TOKEN"
           test -n "$DISCORD_CHANNEL_ID"
@@ -87,9 +89,10 @@ jobs:
             status="❌ Deploy fallido"
           fi
 
-          payload=$(jq -n \
-            --arg content "$status\nRepositorio: $GITHUB_REPOSITORY\nRama: $GITHUB_REF_NAME\nCommit: $GITHUB_SHA\nWorkflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-            '{content: $content}')
+          commit_message="${COMMIT_MESSAGE%%$'\n'*}"
+          commit_message="${commit_message//$'\r'/ }"
+          content="$status en repo $GITHUB_REPOSITORY, commit ${GITHUB_SHA:0:7} ($commit_message), tag: $TAG_NAME"
+          payload=$(jq -n --arg content "$content" '{content: $content}')
 
           curl --fail --silent --show-error \
             -X POST "https://discord.com/api/v10/channels/$DISCORD_CHANNEL_ID/messages" \
