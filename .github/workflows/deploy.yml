@@ -62,3 +62,37 @@ jobs:
         run: |
           test -n "$RENDER_DEPLOY_HOOK_URL"
           curl --fail --silent --show-error --request POST "$RENDER_DEPLOY_HOOK_URL"
+
+  notify-discord:
+    name: Notify Discord
+    if: always()
+    needs: [verify, frontend, backend]
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+      DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+    steps:
+      - name: Send deploy result to Discord
+        env:
+          VERIFY_RESULT: ${{ needs.verify.result }}
+          FRONTEND_RESULT: ${{ needs.frontend.result }}
+          BACKEND_RESULT: ${{ needs.backend.result }}
+        run: |
+          test -n "$DISCORD_BOT_TOKEN"
+          test -n "$DISCORD_CHANNEL_ID"
+
+          if [ "$VERIFY_RESULT" = "success" ] && [ "$FRONTEND_RESULT" = "success" ] && [ "$BACKEND_RESULT" = "success" ]; then
+            status="✅ Deploy exitoso"
+          else
+            status="❌ Deploy fallido"
+          fi
+
+          payload=$(jq -n \
+            --arg content "$status\nRepositorio: $GITHUB_REPOSITORY\nRama: $GITHUB_REF_NAME\nCommit: $GITHUB_SHA\nWorkflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+            '{content: $content}')
+
+          curl --fail --silent --show-error \
+            -X POST "https://discord.com/api/v10/channels/$DISCORD_CHANNEL_ID/messages" \
+            -H "Authorization: Bot $DISCORD_BOT_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "$payload"
