@@ -2,4 +2,4 @@ name: Commit policy
 on: { pull_request: }
 jobs:
   conventional-commits:
-    uses: aurea-io/aurea-ci/.github/workflows/commit-policy.yml@codex/central-ci-notifications
+    uses: aurea-io/aurea-ci/.github/workflows/commit-policy.yml@main
